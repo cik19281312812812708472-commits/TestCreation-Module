@@ -70,6 +70,7 @@ public struct mathEquationBlueprint: Equatable {
         self.leftSide = leftSide
         self.relation = relation
         self.rightSide = rightSide
+        
     }
     
    
