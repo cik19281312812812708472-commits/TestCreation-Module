@@ -6,7 +6,7 @@
 //
 
 
-public struct Number: ExpressibleByIntegerLiteral, Sendable {
+public struct Number: ExpressibleByIntegerLiteral, ExpressibleByStringLiteral, Sendable {
     
     public let value: String
     public let sign: SignBlueprint
@@ -38,19 +38,17 @@ public struct Number: ExpressibleByIntegerLiteral, Sendable {
     }
     
     
-    public init(stringLiteral value: String, sign: SignBlueprint? = nil) {
+    public init(stringLiteral value: String) {
         
         
         var arrayValue: [Character] = Array(value)
-        if sign != nil {
+       
             if arrayValue[0] == "-" {
                 self.sign = .negative
             } else {
                 self.sign = .positive
             }
-        } else {
-            self.sign = sign ?? .positive
-        }
+        
         var trueValue: String = ""
         
         arrayValue.removeFirst()
