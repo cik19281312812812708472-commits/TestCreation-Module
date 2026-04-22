@@ -20,7 +20,7 @@ extension Number {
             //the $0 is each element in a loop
             var leftNum: [Character] = Array(lhs.value.reversed())
             var parts: [Array<Character>.SubSequence] = (leftNum.split { $0 == "."}).reversed()
-            print("parts: ", parts)
+         //   print("parts: ", parts)
             let leftNumAboveDecimal: [Character] = Array(parts[0])
             var leftNumBelowDecimal: [Character] = []
             
@@ -76,11 +76,11 @@ extension Number {
                 carry = sum / 10
                 
                 
-                print(addedValue)
+                //print(addedValue)
                 newValueBelowDecimal.append(Character(String(addedValue)))
-                print(newValueBelowDecimal)
+              // print(newValueBelowDecimal)
             }
-            print("carry: ", carry)
+           // print("carry: ", carry)
             
             
             
@@ -95,12 +95,12 @@ extension Number {
                 
                 let rightNumCharacter = i < rightNumAboveDecimal.count ? rightNumAboveDecimal[i] : "0"
                 let addingRightNum: Int = Int(String(rightNumCharacter)) ?? 0
-                print("g")
-                print(leftNumAboveDecimal)
-                print(rightNumAboveDecimal)
+               // print("g")
+              //  print(leftNumAboveDecimal)
+              //  print(rightNumAboveDecimal)
                 var addedValue = addingLeftNum + addingRightNum
                 addedValue += carry
-                print("addedValue: ", addedValue)
+              //  print("addedValue: ", addedValue)
                 //carry handling
                 
                 let sum = addingLeftNum + addingRightNum + carry
