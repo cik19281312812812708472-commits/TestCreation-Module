@@ -1,38 +1,50 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
+public enum SignBlueprint: Equatable, Sendable {
+    case positive
+    case negative
+}
+
+///this shows all the relations
+public enum RelationBlueprint: Equatable {
+    
+    case equal
+    case greaterThan
+    case lessThan
+    
+}
+
+public enum locationBlueprint: Equatable {
+    case leftSide
+    case rightSide
+}
 
 
 public struct mathEquationBlueprint: Equatable {
     
-    public enum SignBlueprint: Equatable {
-        case positive
-        case negative
-    }
     
-    public enum RelationBlueprint: Equatable {
-        
-        case equal
-        case greaterThan
-        case lessThan
-        
-    }
     
-    public enum locationBlueprint: Equatable {
-        case leftSide
-        case rightSide
-    }
+    
+    //
+   
     
     ///use the bla bla blah
     public struct factor: Equatable {
-        public var topBase: String
-        public var bottomBase: String
+        
+        public var numerator: String
+        
+        ///
+        ///
+        public var denominator: String
+        public var expressingDenominator: Bool
         public var exponent: Int?
         public var squareRoot: Bool
         
-        public init(topBase: String, bottomBase: String, exponent: Int? = nil, squareRoot: Bool) {
-            self.topBase = topBase
-            self.bottomBase = bottomBase
+        public init(topBase: String, bottomBase: String, expressingDenominator: Bool = false, exponent: Int? = nil, squareRoot: Bool) {
+            self.numerator = topBase
+            self.denominator = bottomBase
+            self.expressingDenominator = expressingDenominator 
             self.exponent = exponent
             self.squareRoot = squareRoot
         }
@@ -50,16 +62,17 @@ public struct mathEquationBlueprint: Equatable {
     }
     
     
-    ///it  is counting from the center so on the left side 2 would be t terms to the right
+    ///each math side represents the terms fron left to right.
     public var leftSide: [Term]
     public var relation: RelationBlueprint
     public var rightSide: [Term]
     
     
-    
+    ///
     public mutating func removeAllTerms(_ location: locationBlueprint, _ term: Term) {
         if location == .leftSide {
             leftSide.removeAll { $0 == term}
+            
         } else {
             rightSide.removeAll { $0 == term}
         }
@@ -80,7 +93,12 @@ public struct mathEquationBlueprint: Equatable {
 
 public struct Question {
     
+    
+    
+    
     public var questionText: String
+    
+    
     public var questionContent: Any
     public var questionAnswer: Any
     
@@ -91,5 +109,9 @@ public struct Question {
 }
 
  
+
+
+
+
 
 
