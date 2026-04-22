@@ -37,4 +37,56 @@ public struct Number: ExpressibleByIntegerLiteral, Sendable {
         
     }
     
+    
+    public init(stringLiteral value: String, sign: SignBlueprint? = nil) {
+        
+        
+        var arrayValue: [Character] = Array(value)
+        if sign != nil {
+            if arrayValue[0] == "-" {
+                self.sign = .negative
+            } else {
+                self.sign = .positive
+            }
+        } else {
+            self.sign = sign ?? .positive
+        }
+        var trueValue: String = ""
+        
+        arrayValue.removeFirst()
+        
+        var repeatingTimes: Int = arrayValue.count
+        for i in 0..<repeatingTimes {
+            
+            var number: String = String(arrayValue[i])
+            
+            //
+            if Number.allPossibleNumberDigits.contains(number) == false {
+                
+      
+               // arrayValue[i] = "0"
+                number = "0"
+            }
+              //after checking everything we can add it
+            trueValue += number
+            
+            if i > arrayValue.count {
+                break
+            }
+                
+        }
+        
+       
+        
+        
+        
+        self.value = trueValue
+        
+        
+        
+        
+    }
+    
+    
+    
 }
