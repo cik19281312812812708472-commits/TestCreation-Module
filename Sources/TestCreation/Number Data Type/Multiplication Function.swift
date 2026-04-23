@@ -41,9 +41,9 @@ extension Number {
         
         //multiplying each num
         var allStuffToAdd: [Number] = []
-        for i in 0..<trueRightNum.count {
+        for j in 0..<trueRightNum.count {
             
-            let number = trueRightNum[i]
+            let number = trueRightNum[j]
             
             var stuffToAdd: [Int] = []
             for i in 0..<trueLeftNum.count {
@@ -52,8 +52,14 @@ extension Number {
                 let firstFactor: Int = number.wholeNumberValue ?? 0
                 let secondFactor: Int = trueLeftNum[i].wholeNumberValue ?? 0
              
+              
+                
+                let power = j + i
+                
+                
+                
                 //this canot be very big so we can add it normally
-                let newNumber: Int = firstFactor * secondFactor * Int(pow(Double(10), Double(i+1)))
+                let newNumber: Int = firstFactor * secondFactor * Int(pow(Double(10), Double(power+1)))
                 
                 
                 stuffToAdd.append(newNumber)
