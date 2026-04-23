@@ -2,7 +2,7 @@
 //  All Possible Numbers.swift
 //  TestCreation
 //
-//  Created by Desire on 2026-04-22.
+//  Created by  on 2026-04-22.
 //
 
 extension Number {

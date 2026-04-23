@@ -2,7 +2,7 @@
 //  Multiplication Function.swift
 //  TestCreation
 //
-//  Created by Desire on 2026-04-21.
+//  Created by  on 2026-04-21.
 //
 
 import Foundation
@@ -54,15 +54,17 @@ extension Number {
              
               
                 
+              
+                
+                
+                //what if the power is greater the the double limit? i need to create my own 10 power func that doesn't use int nor double
+                let newNumber: Int = firstFactor * secondFactor
+                
                 let power = j + i
                 
+                var trueNewNum: Int = Int(pow10(String(newNumber), times: power)) ?? 0
                 
-                
-                //this canot be very big so we can add it normally
-                let newNumber: Int = firstFactor * secondFactor * Int(pow(Double(10), Double(power)))
-                
-                
-                stuffToAdd.append(newNumber)
+                stuffToAdd.append(trueNewNum)
                 
             }
             

@@ -2,7 +2,7 @@
 //  Reversing Function.swift
 //  TestCreation
 //
-//  Created by Desire on 2026-04-21.
+//  Created by  on 2026-04-21.
 //
 
 ///This function simply gets your number (with the 'Number' data type) seperates it and turns it into two character arrays

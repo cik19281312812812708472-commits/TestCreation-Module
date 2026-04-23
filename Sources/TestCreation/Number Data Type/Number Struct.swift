@@ -2,13 +2,14 @@
 //  Untitled.swift
 //  TestCreation
 //
-//  Created by Desire on 2026-04-21.
+//  Created by  on 2026-04-21.
 //
 
 
 public struct Number: ExpressibleByIntegerLiteral, ExpressibleByStringLiteral, Sendable {
     
     public let value: String
+ 
     public let sign: SignBlueprint
     
     public init(_ value: Int, sign: SignBlueprint = .positive) {
@@ -45,13 +46,14 @@ public struct Number: ExpressibleByIntegerLiteral, ExpressibleByStringLiteral, S
        
             if arrayValue[0] == "-" {
                 self.sign = .negative
+                arrayValue.removeFirst()
             } else {
                 self.sign = .positive
             }
         
         var trueValue: String = ""
         
-        arrayValue.removeFirst()
+      
         
         var repeatingTimes: Int = arrayValue.count
         for i in 0..<repeatingTimes {

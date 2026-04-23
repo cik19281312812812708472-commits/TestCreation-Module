@@ -2,7 +2,7 @@
 //  other adding FUnc.swift
 //  TestCreation
 //
-//  Created by Desire on 2026-04-21.
+//  Created by  on 2026-04-21.
 //
 
 extension Number {
