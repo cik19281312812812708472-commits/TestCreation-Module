@@ -22,7 +22,7 @@ extension Number {
         
         var finalOutput: Number = 0
         
-        let signMultiplant: Int = lhs.sign == .negative && rhs.sign == .negative ? 1 : -1
+        let signMultiplant: Int = lhs.sign == .negative || rhs.sign == .negative ? -1 : 1
         
         var leftNumber: reversedNumber = reverseNumber(lhs)
         
