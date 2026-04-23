@@ -53,7 +53,7 @@ extension Number {
                 let secondFactor: Int = trueLeftNum[i].wholeNumberValue ?? 0
              
                 //this canot be very big so we can add it normally
-                let newNumber: Int = firstFactor * secondFactor * Int(pow(Double(10), Double(i)))
+                let newNumber: Int = firstFactor * secondFactor * Int(pow(Double(10), Double(i+1)))
                 
                 
                 stuffToAdd.append(newNumber)
@@ -73,6 +73,7 @@ extension Number {
             
         }
         
+        //MARK: add the decimal putting
         //Now we add all the results
         var finalNumber: Number = 0
         for i in 0..<allStuffToAdd.count {
