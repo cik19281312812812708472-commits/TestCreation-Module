@@ -59,7 +59,7 @@ extension Number {
                 
                 
                 //this canot be very big so we can add it normally
-                let newNumber: Int = firstFactor * secondFactor * Int(pow(Double(10), Double(power+1)))
+                let newNumber: Int = firstFactor * secondFactor * Int(pow(Double(10), Double(power)))
                 
                 
                 stuffToAdd.append(newNumber)
