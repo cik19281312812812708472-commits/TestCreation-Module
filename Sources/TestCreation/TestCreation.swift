@@ -90,20 +90,57 @@ public struct mathEquationBlueprint: Equatable {
     
 }
 
+public enum QuestionType: String, Codable {
+    case text
+    case math
+}
+
 
 public struct Question {
     
     
     
+    public var questionType: QuestionType
+    public var questionText: String = ""
     
-    public var questionText: String
+   // public var questionContent: Any
+    ///should only be a string
+    public var questionAnswer: String = ""
+    public var questionMathAnswer: mathEquationBlueprint = mathEquationBlueprint(leftSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])], relation: .equal, rightSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])])
     
     
-    public var questionContent: Any
-    public var questionAnswer: Any
+    public var isAnswerCorrect: Bool = false
+    
+    ///this is simply a var to check if the input is th
+    public var input: String = ""
+    public var inputMath: mathEquationBlueprint = mathEquationBlueprint(leftSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])], relation: .equal, rightSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])])
     
     
+    public mutating func checkAnswer() {
+        
+        switch self.questionType {
+        case .text:
+            if self.questionAnswer == self.input {
+                self.isAnswerCorrect = true
+            } else {
+                self.isAnswerCorrect = false
+            }
+        case .math:
+            if self.questionMathAnswer == self.inputMath {
+                self.isAnswerCorrect = true
+            } else {
+                self.isAnswerCorrect = false
+            }
+        }
+      
+    }
     
+    
+    init(questionType: QuestionType = .text, questionText: String, questionAnswer: String) {
+        self.questionType = questionType
+        self.questionText = questionText
+        self.questionAnswer = questionAnswer
+    }
    
     
 }
