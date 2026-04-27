@@ -1,7 +1,8 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-import SwiftUI
+@_exported import SwiftUI
+@_exported import Foundation
 
 public enum SignBlueprint: Equatable, Sendable {
     case positive
