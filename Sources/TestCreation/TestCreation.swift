@@ -143,6 +143,13 @@ public struct Question {
     }
    
     
+    init(questionType: QuestionType = .math, questionText: String, questionAnswer: mathEquationBlueprint) {
+        self.questionType = questionType
+        self.questionText = questionText
+        self.questionMathAnswer = questionAnswer
+    }
+    
+    
 }
 
  
