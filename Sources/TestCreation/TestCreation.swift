@@ -1,6 +1,8 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
+import SwiftUI
+
 public enum SignBlueprint: Equatable, Sendable {
     case positive
     case negative
@@ -96,6 +98,7 @@ public enum QuestionType: String, Codable {
 }
 
 
+@available(macOS 10.15, *)
 public struct Question {
     
     
@@ -109,8 +112,8 @@ public struct Question {
     public var questionMathAnswer: mathEquationBlueprint = mathEquationBlueprint(leftSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])], relation: .equal, rightSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])])
     
     
-    public var questionContentMath: mathEquationBlueprint = mathEquationBlueprint(leftSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])], relation: .equal, rightSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])])
-    public var questionContent: String = ""
+
+    public var questionContent: any View
     
     
     
@@ -141,7 +144,7 @@ public struct Question {
     }
     
     
-    public init(questionType: QuestionType = .text, questionText: String, questionContent: String, questionAnswer: String) {
+    public init(questionType: QuestionType = .text, questionText: String, questionContent: any View, questionAnswer: String) {
         self.questionType = questionType
         self.questionText = questionText
         self.questionContent = questionContent
@@ -149,10 +152,10 @@ public struct Question {
     }
    
     
-    public init(questionType: QuestionType = .math, questionText: String, questionContent: mathEquationBlueprint, questionAnswer: mathEquationBlueprint) {
+    public init(questionType: QuestionType = .math, questionText: String, questionContent: any View, questionAnswer: mathEquationBlueprint) {
         self.questionType = questionType
         self.questionText = questionText
-        self.questionContentMath = questionContent
+        self.questionContent = questionContent
         self.questionMathAnswer = questionAnswer
     }
     
