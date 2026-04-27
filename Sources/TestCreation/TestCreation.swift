@@ -109,6 +109,11 @@ public struct Question {
     public var questionMathAnswer: mathEquationBlueprint = mathEquationBlueprint(leftSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])], relation: .equal, rightSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])])
     
     
+    public var questionContentMath: mathEquationBlueprint = mathEquationBlueprint(leftSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])], relation: .equal, rightSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])])
+    public var questionContent: String = ""
+    
+    
+    
     public var isAnswerCorrect: Bool = false
     
     ///this is simply a var to check if the input is th
@@ -136,16 +141,18 @@ public struct Question {
     }
     
     
-    public init(questionType: QuestionType = .text, questionText: String, questionAnswer: String) {
+    public init(questionType: QuestionType = .text, questionText: String, questionContent: String, questionAnswer: String) {
         self.questionType = questionType
         self.questionText = questionText
+        self.questionContent = questionContent
         self.questionAnswer = questionAnswer
     }
    
     
-    public init(questionType: QuestionType = .math, questionText: String, questionAnswer: mathEquationBlueprint) {
+    public init(questionType: QuestionType = .math, questionText: String, questionContent: mathEquationBlueprint, questionAnswer: mathEquationBlueprint) {
         self.questionType = questionType
         self.questionText = questionText
+        self.questionContentMath = questionContent
         self.questionMathAnswer = questionAnswer
     }
     
