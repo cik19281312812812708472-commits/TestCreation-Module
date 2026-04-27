@@ -163,6 +163,21 @@ public struct Question {
 }
 
  
+@available(macOS 10.15, *)
+struct mathEquationUIElement: View {
+
+    var mathEquation: mathEquationBlueprint
+    
+   
+    var body: some View {
+        
+    }
+    
+    init(mathEquation: mathEquationBlueprint) {
+        self.mathEquation = mathEquation
+    }
+    
+}
 
 
 
