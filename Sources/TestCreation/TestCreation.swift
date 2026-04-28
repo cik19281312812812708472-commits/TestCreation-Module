@@ -106,6 +106,11 @@ public struct QuestionContent<Content: View> {
     public init(@ViewBuilder inputedContent: () -> Content) {
         self.content = inputedContent()
     }
+    
+    public var body: some View {
+        content
+    }
+    
 }
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, *)
