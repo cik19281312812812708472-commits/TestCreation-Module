@@ -98,6 +98,15 @@ public enum QuestionType: String, Codable {
     case math
 }
 
+
+@available(macOS 10.15, *)
+public struct QuestionContent<Content: View> {
+    public var content: Content
+    
+    public init(@ViewBuilder inputedContent: () -> Content) {
+        self.content = inputedContent()
+    }
+}
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, *)
 public struct Question: Identifiable {
@@ -114,7 +123,7 @@ public struct Question: Identifiable {
     
     
 
-    public var questionContent: any View
+    public var questionContent: QuestionContent<AnyView>?
     
     
     
@@ -145,7 +154,7 @@ public struct Question: Identifiable {
     }
     
     
-    public init(questionType: QuestionType = .text, questionText: String, questionContent: any View, questionAnswer: String) {
+    public init(questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent<AnyView>, questionAnswer: String) {
         self.questionType = questionType
         self.questionText = questionText
         self.questionContent = questionContent
@@ -153,7 +162,7 @@ public struct Question: Identifiable {
     }
    
     
-    public init(questionType: QuestionType = .math, questionText: String, questionContent: any View, questionAnswer: mathEquationBlueprint) {
+    public init(questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent<AnyView>, questionAnswer: mathEquationBlueprint) {
         self.questionType = questionType
         self.questionText = questionText
         self.questionContent = questionContent
