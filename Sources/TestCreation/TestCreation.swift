@@ -100,7 +100,7 @@ public enum QuestionType: String, Codable {
 
 
 @available(macOS 10.15, *)
-public struct QuestionContent<Content: View> {
+public struct QuestionContent<Content: View>: View {
     public var content: Content
     
     public init(@ViewBuilder inputedContent: () -> Content) {
