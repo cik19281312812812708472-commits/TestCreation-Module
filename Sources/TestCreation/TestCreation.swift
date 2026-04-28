@@ -98,11 +98,11 @@ public enum QuestionType: String, Codable {
     case math
 }
 
-
+//add possibility for questiosn to be true or false
 @available(macOS 10.15, *)
-public struct Question {
+public struct Question: Identifiable {
     
-    
+    public var id = UUID()
     
     public var questionType: QuestionType
     public var questionText: String = ""
