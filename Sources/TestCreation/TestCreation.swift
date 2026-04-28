@@ -129,7 +129,8 @@ public struct Question: Identifiable {
     
 
     public var questionContent: QuestionContent<AnyView>?
-    
+    public var questionContentSizeX: CGFloat
+    public var questionContentSizeY: CGFloat
     
     
     public var isAnswerCorrect: Bool = false
@@ -159,18 +160,22 @@ public struct Question: Identifiable {
     }
     
     
-    public init(questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent<AnyView>, questionAnswer: String) {
+    public init(questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent<AnyView>, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String) {
         self.questionType = questionType
         self.questionText = questionText
         self.questionContent = questionContent
+        self.questionContentSizeX = questionContentSizeX
+        self.questionContentSizeY = questionContentSizeY
         self.questionAnswer = questionAnswer
     }
    
     
-    public init(questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent<AnyView>, questionAnswer: mathEquationBlueprint) {
+    public init(questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent<AnyView>, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint) {
         self.questionType = questionType
         self.questionText = questionText
         self.questionContent = questionContent
+        self.questionContentSizeX = questionContentSizeX
+        self.questionContentSizeY = questionContentSizeY
         self.questionMathAnswer = questionAnswer
     }
     
