@@ -114,7 +114,17 @@ public struct QuestionContent<Content: View>: View {
 }
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, *)
-public struct Question: Identifiable {
+public struct Question: Identifiable, Equatable {
+    public static func == (lhs: Question, rhs: Question) -> Bool {
+        lhs.questionText == rhs.questionText &&
+        lhs.questionType == rhs.questionType &&
+        lhs.id == rhs.id &&
+        lhs.questionContentSizeX == rhs.questionContentSizeX &&
+        lhs.questionContentSizeY == rhs.questionContentSizeY &&
+        lhs.questionMathAnswer == rhs.questionMathAnswer &&
+        lhs.questionAnswer == rhs.questionAnswer
+    }
+    
     
     public var id = UUID()
     
