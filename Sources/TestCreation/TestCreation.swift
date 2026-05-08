@@ -99,7 +99,7 @@ public enum QuestionType: String, Codable {
 }
 
 
-@available(macOS 10.15, *)
+@available(macOS 10.15, iOS 13, *)
 public struct QuestionContent<Content: View>: View {
     public var content: Content
     
@@ -113,7 +113,7 @@ public struct QuestionContent<Content: View>: View {
     
 }
 //add possibility for questiosn to be true or false
-@available(macOS 10.15, *)
+@available(macOS 10.15, iOS 13, *)
 public struct Question: Identifiable, Equatable {
     public static func == (lhs: Question, rhs: Question) -> Bool {
         lhs.questionText == rhs.questionText &&
@@ -193,7 +193,7 @@ public struct Question: Identifiable, Equatable {
 }
 
  
-@available(macOS 10.15, *)
+@available(macOS 10.15, iOS 13, *)
 struct mathEquationUIElement: View {
 
     var mathEquation: mathEquationBlueprint
