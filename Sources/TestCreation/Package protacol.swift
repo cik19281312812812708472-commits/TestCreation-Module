@@ -97,12 +97,19 @@ public struct boolSetting: Identifiable {
     public var bool: Bool
     public var name: String
     public var id = UUID()
+    
+    public init(bool: Bool, name: String, id: UUID = UUID()) {
+        self.bool = bool
+        self.name = name
+        self.id = id
+    }
+    
 }
 
 public struct intSetting: Identifiable {
     
     public var int: Int
-    ///How do you see this?
+    
     public var tempIntString: String
     public var name: String
     public var id = UUID()
@@ -117,8 +124,11 @@ public struct intSetting: Identifiable {
 }
 
 public struct doubleSetting: Identifiable {
+    
+    
     public var double: Double
     
+    //why this is here will be explained
     public var tempDoubleString: String = ""
     public var name: String
     public var id = UUID()
