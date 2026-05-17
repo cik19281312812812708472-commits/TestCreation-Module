@@ -115,6 +115,8 @@ public struct QuestionContent<Content: View>: View {
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, iOS 13, *)
 public struct Question: Identifiable, Equatable {
+    
+    
     public static func == (lhs: Question, rhs: Question) -> Bool {
         lhs.questionText == rhs.questionText &&
         lhs.questionType == rhs.questionType &&
@@ -126,7 +128,14 @@ public struct Question: Identifiable, Equatable {
     }
     
     
+    ///Identifiyng stuff
     public var id = UUID()
+    
+    ///it is stored as UUID so that if the package owner changes its changes can still be remembered
+    public var packageOwner: UUID
+
+    
+    
     
     public var questionType: QuestionType
     public var questionText: String = ""
@@ -170,7 +179,10 @@ public struct Question: Identifiable, Equatable {
     }
     
     
-    public init(questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent<AnyView>, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String) {
+    public init(creator: UUID, questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent<AnyView>, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String) {
+        
+        self.packageOwner = creator
+        
         self.questionType = questionType
         self.questionText = questionText
         self.questionContent = questionContent
@@ -180,7 +192,10 @@ public struct Question: Identifiable, Equatable {
     }
    
     
-    public init(questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent<AnyView>, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint) {
+    public init(creator: UUID, questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent<AnyView>, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint) {
+        
+        self.packageOwner = creator
+        
         self.questionType = questionType
         self.questionText = questionText
         self.questionContent = questionContent
