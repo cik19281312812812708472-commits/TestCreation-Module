@@ -100,17 +100,28 @@ public enum QuestionType: String, Codable {
 
 
 @available(macOS 10.15, iOS 13, *)
-public struct QuestionContent<Content: View>: View {
-    public var content: Content
-    
-    public init(@ViewBuilder inputedContent: () -> Content) {
-        self.content = inputedContent()
+public struct QuestionContent: View {
+
+    public var content: AnyView
+
+    public init(_ content: AnyView) {
+
+        self.content = content
+
     }
-    
+
+    public init<V: View>(@ViewBuilder builder: () -> V) {
+
+        self.content = AnyView(builder())
+
+    }
+
     public var body: some View {
+
         content
+
     }
-    
+
 }
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, iOS 13, *)
@@ -147,7 +158,7 @@ public struct Question: Identifiable, Equatable {
     
     
 
-    public var questionContent: QuestionContent<AnyView>?
+    public var questionContent: QuestionContent?
     public var questionContentSizeX: CGFloat
     public var questionContentSizeY: CGFloat
     
@@ -179,7 +190,7 @@ public struct Question: Identifiable, Equatable {
     }
     
     
-    public init(creator: UUID, questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent<AnyView>, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String) {
+    public init(creator: UUID, questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String) {
         
         self.packageOwner = creator
         
@@ -192,7 +203,7 @@ public struct Question: Identifiable, Equatable {
     }
    
     
-    public init(creator: UUID, questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent<AnyView>, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint) {
+    public init(creator: UUID, questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint) {
         
         self.packageOwner = creator
         
