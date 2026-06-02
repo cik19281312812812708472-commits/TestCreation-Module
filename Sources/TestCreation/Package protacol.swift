@@ -42,6 +42,9 @@ public protocol Package: ObservableObject, Identifiable {
     
     func filterAnswer(answer: String) -> String
     
+    //this is if the package wants to do stuff before it is used
+    func setup()
+    
 }
 //for each package a custom view will be needed but for now 
 
@@ -79,8 +82,8 @@ public extension Package {
         return answer
     }
     
-    
-    
+    //this is auto nothing as some packages dont need it.
+    func setup() {}
     
 }
 

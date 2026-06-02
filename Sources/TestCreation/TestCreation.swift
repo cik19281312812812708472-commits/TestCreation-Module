@@ -123,6 +123,9 @@ public struct QuestionContent: View {
     }
 
 }
+
+
+
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, iOS 13, *)
 public struct Question: Identifiable, Equatable {
