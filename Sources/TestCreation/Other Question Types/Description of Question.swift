@@ -7,7 +7,7 @@
 
 
 @available(macOS 10.15, *)
-public struct DescriptionOfQuestion {
+public struct DescriptionOfQuestion: Codable {
     
     
     //more description will be added
