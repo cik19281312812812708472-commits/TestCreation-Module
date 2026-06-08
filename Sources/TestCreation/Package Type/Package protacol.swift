@@ -36,6 +36,8 @@ public protocol Package: ObservableObject, Identifiable {
     func createSection(numOfQuestions: Int) -> [Question]
     func createQuestion() -> Question
     
+    ///This function is to recreated a specified question based on the data inputed. It is used for the loading of the questions in a test.
+    func loadQuestion(descriptionOfQuestion: DescriptionOfQuestion) -> Question
     
     
     
@@ -45,8 +47,10 @@ public protocol Package: ObservableObject, Identifiable {
     //this is if the package wants to do stuff before it is used
     func setup()
     
+    
 }
 //for each package a custom view will be needed but for now 
+
 
 @available(macOS 10.15, *)
 public extension Package {
@@ -84,7 +88,7 @@ public extension Package {
     
     //this is auto nothing as some packages dont need it.
     func setup() {}
-    
+  
 }
 
 

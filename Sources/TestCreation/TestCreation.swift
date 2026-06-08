@@ -145,6 +145,8 @@ public struct Question: Identifiable, Equatable {
     ///Identifiyng stuff
     public var id = UUID()
     
+    public var questionName: String
+    
     ///it is stored as UUID so that if the package owner changes its changes can still be remembered
     public var packageOwner: UUID
 
@@ -193,9 +195,11 @@ public struct Question: Identifiable, Equatable {
     }
     
     
-    public init(creator: UUID, questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String) {
+    public init(creator: UUID, questionName: String, questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String) {
         
         self.packageOwner = creator
+        
+        self.questionName = questionName
         
         self.questionType = questionType
         self.questionText = questionText
@@ -206,9 +210,11 @@ public struct Question: Identifiable, Equatable {
     }
    
     
-    public init(creator: UUID, questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint) {
+    public init(creator: UUID, questionName: String, questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint) {
         
         self.packageOwner = creator
+        
+        self.questionName = questionName
         
         self.questionType = questionType
         self.questionText = questionText
