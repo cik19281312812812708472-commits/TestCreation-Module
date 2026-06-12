@@ -36,15 +36,15 @@ public protocol Package: ObservableObject, Identifiable {
     func createSection(numOfQuestions: Int) -> [Question]
     func createQuestion() -> Question
     
-    ///This function is to recreated a specified question based on the data inputed. It is used for the loading of the questions in a test.
+    ///This function is to recreate a specified question based on the data inputed. It is used for the loading of the questions in a test.
     func loadQuestion(descriptionOfQuestion: DescriptionOfQuestion) -> Question
     
     
     
-    
+    ///This is to modify question answers before they are checked.
     func filterAnswer(answer: String) -> String
     
-    //this is if the package wants to do stuff before it is used
+    ///This is if a package wants to do stuff before it is used
     func setup()
     
     
@@ -105,10 +105,13 @@ public struct boolSetting: Identifiable {
     public var name: String
     public var id = UUID()
     
-    public init(bool: Bool, name: String, id: UUID = UUID()) {
+    public var description: String
+    
+    public init(bool: Bool, name: String, id: UUID = UUID(), description: String = "") {
         self.bool = bool
         self.name = name
         self.id = id
+        self.description = description
     }
     
 }
@@ -121,11 +124,14 @@ public struct intSetting: Identifiable {
     public var name: String
     public var id = UUID()
     
-    public init(int: Int, name: String, id: UUID = UUID()) {
+    public var description: String
+    
+    public init(int: Int, name: String, id: UUID = UUID(), description: String = "") {
         self.int = int
         self.tempIntString = String(int)
         self.name = name
         self.id = id
+        self.description = description
     }
     
 }
@@ -136,15 +142,18 @@ public struct doubleSetting: Identifiable {
     public var double: Double
     
     //why this is here will be explained
-    public var tempDoubleString: String = ""
+    public var tempDoubleString: String
     public var name: String
     public var id = UUID()
     
-    public init(double: Double, name: String, id: UUID = UUID()) {
+    public var description: String = ""
+    
+    public init(double: Double, name: String, id: UUID = UUID(), description: String = "") {
         self.double = double
         self.tempDoubleString = String(double)
         self.name = name
         self.id = id
+        self.description = description
     }
     
 }
