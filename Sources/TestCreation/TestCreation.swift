@@ -142,7 +142,7 @@ public struct Question: Identifiable, Equatable {
     }
     
     @MainActor
-    public func getNullQuestion() -> Question {
+    public static func getNullQuestion() -> Question {
         let questionWords = "test"
         //MARK: FIX THIS
         let questionContent2 = QuestionContent(AnyView(EmptyView()))
