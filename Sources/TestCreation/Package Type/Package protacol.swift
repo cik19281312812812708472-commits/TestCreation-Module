@@ -105,6 +105,7 @@ public struct boolSetting: Identifiable {
     public var name: String
     public var id = UUID()
     
+    //MARK: This should be changed into an array for formatting.
     public var description: String
     
     public init(bool: Bool, name: String, id: UUID = UUID(), description: String = "") {
