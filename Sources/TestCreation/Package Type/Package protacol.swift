@@ -163,6 +163,7 @@ public struct lightQuestion {
     
     public var questionWords: String
     public var answer: String
+    public var questionDescription: String = ""
     
     public init(questionWords: String, answer: String) {
         self.questionWords = questionWords
