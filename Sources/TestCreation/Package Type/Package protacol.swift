@@ -163,11 +163,12 @@ public struct lightQuestion {
     
     public var questionWords: String
     public var answer: String
-    public var questionDescription: String = ""
+    public var questionDescription: String
     
-    public init(questionWords: String, answer: String) {
+    public init(questionWords: String, answer: String, questionDescription: String = "") {
         self.questionWords = questionWords
         self.answer = answer
+        self.questionDescription = questionDescription
     }
     
 }
