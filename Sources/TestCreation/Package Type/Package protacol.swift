@@ -11,7 +11,7 @@ import Combine
 
 
 @available(macOS 10.15, *)
-public protocol Package: ObservableObject, Identifiable, Codable {
+public protocol Package: ObservableObject, Identifiable {
 
     ///Please put your internal name as a let statement
     
@@ -92,14 +92,14 @@ public extension Package {
 }
 
 
-public enum allChangbleTypes: Codable {
+public enum allChangbleTypes {
     case bool
     case int
     case double
 }
 
 
-public struct boolSetting: Identifiable, Codable {
+public struct boolSetting: Identifiable {
     
     public var bool: Bool
     public var name: String
@@ -117,7 +117,7 @@ public struct boolSetting: Identifiable, Codable {
     
 }
 
-public struct intSetting: Identifiable, Codable {
+public struct intSetting: Identifiable {
     
     public var int: Int
     
@@ -137,7 +137,7 @@ public struct intSetting: Identifiable, Codable {
     
 }
 
-public struct doubleSetting: Identifiable, Codable {
+public struct doubleSetting: Identifiable {
     
     
     public var double: Double
@@ -159,7 +159,7 @@ public struct doubleSetting: Identifiable, Codable {
     
 }
 
-public struct lightQuestion: Codable {
+public struct lightQuestion {
     
     public var questionWords: String
     public var answer: String
