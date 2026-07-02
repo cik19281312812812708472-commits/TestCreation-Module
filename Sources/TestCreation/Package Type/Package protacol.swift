@@ -16,10 +16,12 @@ public protocol Package: ObservableObject, Identifiable {
     ///Please put your internal name as a let statement
     
     var publicName: String { get }
+    
+    ///This is used for description of Questions.
     var internalName: String { get }
     var packageDescription: String { get set }
     
-    
+    //the creators id must be set.   
     var id: UUID { get }
     
     
@@ -145,6 +147,7 @@ public struct doubleSetting: Identifiable {
     //why this is here will be explained
     public var tempDoubleString: String
     public var name: String
+    
     public var id = UUID()
     
     public var description: String = ""
