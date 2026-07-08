@@ -41,6 +41,8 @@ public protocol Package: ObservableObject, Identifiable {
     ///This function is to recreate a specified question based on the data inputed. It is used for the loading of the questions in a test.
     func loadQuestion(descriptionOfQuestion: DescriptionOfQuestion) -> Question
     
+    ///This function creates a description of a question based on the question inputed
+    func saveQuestion(question: Question) -> DescriptionOfQuestion
     
     
     ///This is to modify question answers before they are checked.
