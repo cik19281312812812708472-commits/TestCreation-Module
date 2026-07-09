@@ -33,6 +33,8 @@ public struct Question: Identifiable, Equatable {
     public var questionContentSizeX: CGFloat
     public var questionContentSizeY: CGFloat
     
+    ///This variable is for decribing what the question is. This has no effect on the UI and is just for the back end of things.
+    public var questionDescription: String
     
     public var isAnswerCorrect: Bool = false
     
@@ -61,7 +63,7 @@ public struct Question: Identifiable, Equatable {
     }
     
     
-    public init(creator: UUID, questionName: String, questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String, letTestManagerCreateDescriptionOfQuestion: Bool = true) {
+    public init(creator: UUID, questionName: String, questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String, questionDescription: String = "", letTestManagerCreateDescriptionOfQuestion: Bool = true) {
         
         self.packageOwner = creator
         
@@ -73,11 +75,12 @@ public struct Question: Identifiable, Equatable {
         self.questionContentSizeX = questionContentSizeX
         self.questionContentSizeY = questionContentSizeY
         self.questionAnswer = questionAnswer
+        self.questionDescription = questionDescription
         self.letTestManagerCreateDescriptionOfQuestion = letTestManagerCreateDescriptionOfQuestion
     }
    
     
-    private init(creator: UUID, questionName: String, questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint, letTestManagerCreateDescriptionOfQuestion: Bool = true) {
+    private init(creator: UUID, questionName: String, questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint, questionDescription: String = "", letTestManagerCreateDescriptionOfQuestion: Bool = true) {
         
         self.packageOwner = creator
         
@@ -89,6 +92,7 @@ public struct Question: Identifiable, Equatable {
         self.questionContentSizeX = questionContentSizeX
         self.questionContentSizeY = questionContentSizeY
         self.questionMathAnswer = questionAnswer
+        self.questionDescription = questionDescription
         self.letTestManagerCreateDescriptionOfQuestion = letTestManagerCreateDescriptionOfQuestion
     }
     
