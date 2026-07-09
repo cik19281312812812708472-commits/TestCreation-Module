@@ -7,6 +7,7 @@
 
 import Foundation
 
+@available(iOS 13, *)
 @available(macOS 10.15, *)
 public struct DescriptionOfQuestion: Codable {
     

@@ -5,7 +5,7 @@
 //  Created by Desire on 2026-06-29.
 //
 
-
+@available(iOS 13, *)
 @available(macOS 10.15, *)
 extension Array where Element: Package {
     

@@ -5,8 +5,10 @@
 //  Created by Desire on 2026-07-02.
 //
 
+@available(iOS 13, *)
 @available(macOS 10.15, *)
 public extension Question {
+    
     @MainActor
     static func getNullQuestion() -> Question {
         let questionWords = "test"

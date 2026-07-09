@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-
+@available(iOS 13, *)
 @available(macOS 10.15, *)
 public protocol Package: ObservableObject, Identifiable {
 
@@ -55,7 +55,7 @@ public protocol Package: ObservableObject, Identifiable {
 }
 //for each package a custom view will be needed but for now 
 
-
+@available(iOS 13, *)
 @available(macOS 10.15, *)
 public extension Package {
     
