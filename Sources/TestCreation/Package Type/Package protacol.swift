@@ -16,8 +16,8 @@ public enum PackageTypes {
     case mathPackage
     case languagePackage
     case highLevelMathPackage
-    
-    ///For the spoken language.
+    case sciencePackage
+    ///For the spoken language of the region
     case spokenLanguagePackage
     
     
