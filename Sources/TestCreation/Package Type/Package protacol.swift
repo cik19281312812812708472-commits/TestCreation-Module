@@ -9,6 +9,22 @@ import Foundation
 import SwiftUI
 import Combine
 
+
+public enum PackageTypes {
+    
+    case undescripedPackage
+    case mathPackage
+    case languagePackage
+    case highLevelMathPackage
+    
+    ///For the spoken language.
+    case spokenLanguagePackage
+    
+    
+}
+
+
+
 @available(iOS 13, *)
 @available(macOS 10.15, *)
 public protocol Package: ObservableObject, Identifiable {
@@ -24,6 +40,8 @@ public protocol Package: ObservableObject, Identifiable {
     //the creators id must be set.   
     var id: UUID { get }
     
+    ///
+    var packageType: PackageTypes { get set }
     
     var allChangbleBools: [boolSetting] { get set }
     var allChangbleInts: [intSetting] { get set }
