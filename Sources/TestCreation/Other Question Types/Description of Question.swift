@@ -23,7 +23,7 @@ public struct DescriptionOfQuestion: Codable {
     ///What is already inputed into the question
     public var questionInput: String
     
-    ///This tracks the current question Index.
+    ///This tracks the current question Index. As of now this is useless.
     public var questionIndex: Int
     
     
