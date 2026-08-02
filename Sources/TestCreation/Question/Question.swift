@@ -5,9 +5,26 @@
 //  Created by Desire on 2026-07-02.
 //
 
+@available(macOS 10.15, iOS 13, *)
+extension Question {
+    
+    public enum MulptilpleChoiceAnswers: String {
+        
+        case choice1 = "1"
+        case choice2 = "2"
+        case choice3 = "3"
+        case choice4 = "4"
+        
+    }
+    
+}
+
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, iOS 13, *)
 public struct Question: Identifiable, Equatable {
+    
+    public typealias Input = String
+    public typealias Answer = String
     
     ///Identifiyng stuff
     public var id = UUID()
@@ -21,14 +38,9 @@ public struct Question: Identifiable, Equatable {
     
     public var questionType: QuestionType
     public var questionText: String = ""
-    
-   // public var questionContent: Any
-    ///should only be a string
+ 
     public var questionAnswer: String = ""
-    public var questionMathAnswer: mathEquationBlueprint = mathEquationBlueprint(leftSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])], relation: .equal, rightSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])])
     
-    
-
     public var questionContent: QuestionContent?
     public var questionContentSizeX: CGFloat
     public var questionContentSizeY: CGFloat
@@ -40,30 +52,59 @@ public struct Question: Identifiable, Equatable {
     
     ///this is simply a var to check if the input is th
     public var input: String = ""
-    public var inputMath: mathEquationBlueprint = mathEquationBlueprint(leftSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])], relation: .equal, rightSide: [mathEquationBlueprint.Term(sign: .positive, factors: [mathEquationBlueprint.factor(topBase: "0", bottomBase: "1", squareRoot: false)])])
     
+    public var customCheckAnsFunc: ((Input, Answer) -> Bool)?
+    
+    //TODO: Special views will be created for this insted of it being stored here:
+    //TODO: And special inputs views will be created for the question math answer and the question math input
+   
     
     public mutating func checkAnswer() {
-        
-        switch self.questionType {
-        case .text:
-            if self.questionAnswer == self.input {
-                self.isAnswerCorrect = true
-            } else {
-                self.isAnswerCorrect = false
+    
+        if customCheckAnsFunc != nil {
+            
+            self.isAnswerCorrect = customCheckAnsFunc!(self.input, self.questionAnswer)
+            
+        } else {
+            
+            switch questionType {
+            case .text:
+                if self.questionAnswer == self.input {
+                    self.isAnswerCorrect = true
+                } else {
+                    self.isAnswerCorrect = false
+                }
+            case .math:
+                if self.questionAnswer == self.input {
+                    self.isAnswerCorrect = true
+                } else {
+                    self.isAnswerCorrect = false
+                }
+            case .multipleChoice:
+                if self.questionAnswer == self.input {
+                    self.isAnswerCorrect = true
+                } else {
+                    self.isAnswerCorrect = false
+                }
             }
-        case .math:
-            if self.questionMathAnswer == self.inputMath {
-                self.isAnswerCorrect = true
-            } else {
-                self.isAnswerCorrect = false
-            }
+            
         }
-      
     }
     
     
-    public init(creator: UUID, questionName: String, questionType: QuestionType = .text, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: String, questionDescription: String = "", letTestManagerCreateDescriptionOfQuestion: Bool = true) {
+    
+    public init(creator: UUID,
+                questionName: String,
+                questionType: QuestionType = .text,
+                questionText: String,
+                questionContent: QuestionContent,
+                questionContentSizeX: CGFloat,
+                questionContentSizeY: CGFloat,
+                questionAnswer: String,
+                checkAnswer: ((Input, Answer) -> Bool)? = nil,
+                questionDescription: String = "",
+                letTestManagerCreateDescriptionOfQuestion: Bool = true
+    ) {
         
         self.packageOwner = creator
         
@@ -75,26 +116,10 @@ public struct Question: Identifiable, Equatable {
         self.questionContentSizeX = questionContentSizeX
         self.questionContentSizeY = questionContentSizeY
         self.questionAnswer = questionAnswer
+        self.customCheckAnsFunc = checkAnswer
         self.questionDescription = questionDescription
         self.letTestManagerCreateDescriptionOfQuestion = letTestManagerCreateDescriptionOfQuestion
+        
     }
-   
-    
-    private init(creator: UUID, questionName: String, questionType: QuestionType = .math, questionText: String, questionContent: QuestionContent, questionContentSizeX: CGFloat, questionContentSizeY: CGFloat, questionAnswer: mathEquationBlueprint, questionDescription: String = "", letTestManagerCreateDescriptionOfQuestion: Bool = true) {
-        
-        self.packageOwner = creator
-        
-        self.questionName = questionName
-        
-        self.questionType = questionType
-        self.questionText = questionText
-        self.questionContent = questionContent
-        self.questionContentSizeX = questionContentSizeX
-        self.questionContentSizeY = questionContentSizeY
-        self.questionMathAnswer = questionAnswer
-        self.questionDescription = questionDescription
-        self.letTestManagerCreateDescriptionOfQuestion = letTestManagerCreateDescriptionOfQuestion
-    }
-    
-    
 }
+

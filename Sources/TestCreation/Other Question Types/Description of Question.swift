@@ -11,6 +11,7 @@ import Foundation
 @available(macOS 10.15, *)
 public struct DescriptionOfQuestion: Codable {
     
+    public var questionType: QuestionType
     
     public var creatorInternalName: String
     
@@ -27,7 +28,9 @@ public struct DescriptionOfQuestion: Codable {
     public var questionIndex: Int
     
     
+    
     public init(ownerInternalName: String, question: Question, extraDescription: String = "", questionIndex: Int = 0) {
+        self.questionType = question.questionType
         self.creatorInternalName = ownerInternalName
         self.questionName = question.questionName
         self.questionText = question.questionText
@@ -37,7 +40,8 @@ public struct DescriptionOfQuestion: Codable {
         self.questionIndex = questionIndex
     }
     
-    public init(ownerInternalName: String, questionName: String, questionText: String, questionAnswer: String, questionInput: String, extraDescription: String = "", questionIndex: Int = 0) {
+    public init(ownerInternalName: String, questionName: String, questionText: String, questionAnswer: String, questionInput: String, extraDescription: String = "", questionIndex: Int = 0, questionType: QuestionType = .text) {
+        self.questionType = questionType
         self.creatorInternalName = ownerInternalName
         self.questionName = questionName
         self.questionText = questionText

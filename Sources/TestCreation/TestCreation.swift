@@ -96,6 +96,7 @@ public struct mathEquationBlueprint: Equatable {
 public enum QuestionType: String, Codable {
     case text
     case math
+    case multipleChoice
 }
 
 
@@ -123,11 +124,6 @@ public struct QuestionContent: View {
     }
 
 }
-
-
-
-
-
  
 @available(macOS 10.15, iOS 13, *)
 struct mathEquationUIElement: View {

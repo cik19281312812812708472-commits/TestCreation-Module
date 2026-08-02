@@ -4,8 +4,8 @@
 //
 //  Created by Desire on 2026-07-02.
 //
-@available(iOS 13, *)
-@available(macOS 10.15, *)
+
+@available(macOS 10.15, iOS 13, *)
 public extension Question {
      static func == (lhs: Question, rhs: Question) -> Bool {
         lhs.questionText == rhs.questionText &&
@@ -13,7 +13,6 @@ public extension Question {
         lhs.id == rhs.id &&
         lhs.questionContentSizeX == rhs.questionContentSizeX &&
         lhs.questionContentSizeY == rhs.questionContentSizeY &&
-        lhs.questionMathAnswer == rhs.questionMathAnswer &&
         lhs.questionAnswer == rhs.questionAnswer
     }
     

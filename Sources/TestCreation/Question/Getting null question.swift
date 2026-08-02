@@ -11,11 +11,11 @@ public extension Question {
     
     @MainActor
     static func getNullQuestion() -> Question {
-        let questionWords = "test"
+        let questionWords = "null"
         //MARK: FIX THIS
         let questionContent2 = QuestionContent(AnyView(EmptyView()))
         
-        let nullQuestion = Question(creator: UUID(), questionName: "", questionText: "", questionContent: questionContent2 , questionContentSizeX: CGFloat(500), questionContentSizeY: CGFloat(500), questionAnswer: questionWords)
+        let nullQuestion = Question(creator: UUID(), questionName: "Null Question", questionText: "Null Question", questionContent: questionContent2 , questionContentSizeX: CGFloat(500), questionContentSizeY: CGFloat(500), questionAnswer: questionWords)
         return nullQuestion
     }
     
