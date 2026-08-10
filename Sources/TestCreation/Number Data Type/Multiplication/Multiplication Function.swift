@@ -24,20 +24,20 @@ extension Number {
         
         let signMultiplant: Int = lhs.sign == .negative || rhs.sign == .negative ? -1 : 1
         
-        var leftNumber: reversedNumber = reverseNumber(lhs)
+        let leftNumber: reversedNumber = reverseNumber(lhs)
         
-        var leftNumberAboveDecimal: [Character] = leftNumber.partAboveDecimal
-        var leftNumberBelowDecimal: [Character] = leftNumber.partBelowDecimal
+        let leftNumberAboveDecimal: [Character] = leftNumber.partAboveDecimal
+        let leftNumberBelowDecimal: [Character] = leftNumber.partBelowDecimal
         
-        var trueLeftNum = leftNumberBelowDecimal + leftNumberAboveDecimal
+        let trueLeftNum = leftNumberBelowDecimal + leftNumberAboveDecimal
         
-        var rightNumber: reversedNumber = reverseNumber(rhs)
+        let rightNumber: reversedNumber = reverseNumber(rhs)
         
         
-        var rightNumberAboveDecimal: [Character] = rightNumber.partAboveDecimal
-        var rightNumberBelowDecimal: [Character] = rightNumber.partBelowDecimal
+        let rightNumberAboveDecimal: [Character] = rightNumber.partAboveDecimal
+        let rightNumberBelowDecimal: [Character] = rightNumber.partBelowDecimal
         
-        var trueRightNum = rightNumberBelowDecimal + rightNumberAboveDecimal
+        let trueRightNum = rightNumberBelowDecimal + rightNumberAboveDecimal
         
         //multiplying each num
         var allStuffToAdd: [Number] = []
@@ -45,7 +45,7 @@ extension Number {
             
             let number = trueRightNum[j]
             
-            var stuffToAdd: [Int] = []
+            var stuffToAdd: [Number] = []
             for i in 0..<trueLeftNum.count {
                 
                 
@@ -58,11 +58,15 @@ extension Number {
                 
                 
                 //what if the power is greater the the double limit? i need to create my own 10 power func that doesn't use int nor double
+                
+                //this can never too big.
                 let newNumber: Int = firstFactor * secondFactor
                 
                 let power = j + i
                 
-                var trueNewNum: Int = Int(pow10(String(newNumber), times: power)) ?? 0
+                
+                
+                let trueNewNum: Number = Number(pow10(String(newNumber), times: power))
                 
                 stuffToAdd.append(trueNewNum)
                 
@@ -73,8 +77,9 @@ extension Number {
             
             for i in 0..<stuffToAdd.count {
                 
-                let numberToAdd: Number = Number(stuffToAdd[i])
+                let numberToAdd: Number = stuffToAdd[i]
                 finalNumber += numberToAdd
+                
                 
             }
             allStuffToAdd.append(finalNumber)
@@ -82,6 +87,7 @@ extension Number {
         }
         
         //MARK: add the decimal putting
+        //wdym
         //Now we add all the results
         var finalNumber: Number = 0
         for i in 0..<allStuffToAdd.count {
