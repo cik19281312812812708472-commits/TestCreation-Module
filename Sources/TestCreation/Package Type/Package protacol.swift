@@ -63,7 +63,7 @@ public protocol Package: ObservableObject, Identifiable, Codable {
     func saveQuestion(question: Question) -> DescriptionOfQuestion
     
     
-    ///This is to modify question answers before they are checked.
+    ///This is to modify question answers globally before they are checked.
     func filterAnswer(answer: String) -> String
     
     ///This is if a package wants to do stuff before it is used

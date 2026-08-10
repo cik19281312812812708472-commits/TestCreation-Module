@@ -12,8 +12,8 @@
 extension Number {
     
     
-    public static prefix func - (number: Number) -> Number {
-        
+    public static prefix func -(number: Number) -> Number {
+        print("switch sign")
         var newNumber: Number = 0
         if number.sign == .positive {
              newNumber = Number(number.value, sign: .negative)

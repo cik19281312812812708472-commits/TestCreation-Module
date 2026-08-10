@@ -13,11 +13,13 @@ extension Number {
     
     public static func += (lhs: inout Number, rhs: Number) {
         
-        
-        let newNumber = lhs + rhs
-        
-        lhs = newNumber
+        lhs = lhs + rhs
         
     }
     
+    public static func -= (lhs: inout Number, rhs: Number) {
+        
+        lhs = lhs - rhs
+        
+    }
 }

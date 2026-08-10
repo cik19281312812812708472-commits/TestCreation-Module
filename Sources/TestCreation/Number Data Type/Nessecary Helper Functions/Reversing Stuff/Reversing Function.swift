@@ -11,7 +11,7 @@ func reverseNumber(_ number: Number) -> reversedNumber {
     //the $0 is each element in a loop
     var numberReversed: [Character] = Array(number.value.reversed())
     var parts: [Array<Character>.SubSequence] = (numberReversed.split { $0 == "."}).reversed()
-    print("parts: ", parts)
+    //print("parts: ", parts)
     let reversedNumberAboveDecimal: [Character] = Array(parts[0])
     var reversedNumberBelowDecimal: [Character] = []
     

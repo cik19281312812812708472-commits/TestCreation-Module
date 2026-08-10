@@ -29,7 +29,7 @@ public struct Number: ExpressibleByIntegerLiteral, ExpressibleByStringLiteral, S
    
     public init(integerLiteral value: Int) {
         self.value = String(value)
-        
+      
         if value < 0 {
             self.sign = .negative
         } else {

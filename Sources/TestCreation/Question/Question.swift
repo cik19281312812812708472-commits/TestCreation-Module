@@ -18,7 +18,7 @@ extension Question {
     }
     
 }
-
+//MARK: MAKE IT THAT EACH QUESTION CAN HAVE CONTENT FOR iOS and macOS
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, iOS 13, *)
 public struct Question: Identifiable, Equatable {
