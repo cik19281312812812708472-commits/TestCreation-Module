@@ -35,19 +35,21 @@ extension Number {
         
         let belowDecimalBinaryCount = belowDecimalBinary.count
         
-        for i in 1...belowDecimalBinary.count {
-            
-            let binaryDigit = binary[belowDecimalBinaryCount - i]
-            
-            if binaryDigit == 1 {
-                
-                let numToAdd: Number = 0 //Number(1) / intPow(lhs: Number(2), rhs: Number(i))
-                aboveDecimalNumber += numToAdd
-            }
-            
-            
-        }
         
+        if belowDecimalBinary.count > 0 {
+            for i in 1...belowDecimalBinary.count {
+                
+                let binaryDigit = binary[belowDecimalBinaryCount - i]
+                
+                if binaryDigit == 1 {
+                    
+                    let numToAdd: Number = 0 //Number(1) / intPow(lhs: Number(2), rhs: Number(i))
+                    aboveDecimalNumber += numToAdd
+                }
+                
+                
+            }
+        }
         
         return (aboveDecimalNumber + belowDecimalNumber)
     }
