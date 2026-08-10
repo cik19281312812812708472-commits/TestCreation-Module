@@ -8,7 +8,7 @@
 extension Number {
     
     
-    static func >= (lhs: Number, rhs: Number) -> Bool {
+    public static func >= (lhs: Number, rhs: Number) -> Bool {
         
         guard lhs > rhs else {
             return false
@@ -22,7 +22,7 @@ extension Number {
     }
     
     
-    static func <= (lhs: Number, rhs: Number) -> Bool {
+    public static func <= (lhs: Number, rhs: Number) -> Bool {
         
         if lhs > rhs {
             return false

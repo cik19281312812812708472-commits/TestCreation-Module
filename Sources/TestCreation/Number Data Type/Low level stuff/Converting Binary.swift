@@ -10,7 +10,7 @@
 extension Number {
     
     ///This does not work for decimal binary (please add a division function.)
-    static func convertBinaryToNumber(binary: [Int], belowDecimalBinary: [Int]) -> Number {
+    public static func convertBinaryToNumber(binary: [Int], belowDecimalBinary: [Int]) -> Number {
         
         
         

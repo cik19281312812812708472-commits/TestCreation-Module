@@ -8,7 +8,7 @@
 extension Number {
     
     
-    static func == (lhs: Number, rhs: Number) -> Bool {
+    public static func == (lhs: Number, rhs: Number) -> Bool {
         
         guard lhs.sign == rhs.sign else {
             return false

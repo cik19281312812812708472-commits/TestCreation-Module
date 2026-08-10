@@ -8,7 +8,7 @@
 extension Number {
     
     ///This only works for whole numbers, for now
-    static func intPow(lhs: Number, rhs: Number) -> Number {
+    public static func intPow(lhs: Number, rhs: Number) -> Number {
         
         
         var counter = rhs
