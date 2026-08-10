@@ -23,7 +23,7 @@ extension Number {
             let binaryDigit = binary[binaryCount - i]
             
             if binaryDigit == 1 {
-                print("2^\(i - 1)" )
+                //print("2^\(i - 1)" )
                 let numToAdd = intPow(lhs: Number(2), rhs: Number(i - 1)) //returns 2
                 aboveDecimalNumber += numToAdd
             }

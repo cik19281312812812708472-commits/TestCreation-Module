@@ -26,7 +26,7 @@ extension Number {
             
             
             result = result * temp
-            print("counter: ", counter)
+           // print("counter: ", counter)
             counter -= Number(1)
         }
         
