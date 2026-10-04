@@ -7,6 +7,8 @@
 
 extension Number {
     
+    
+    ///This function helps remove any bugginess that might come with some numbers.
     public mutating func cleanUp() {
         
         

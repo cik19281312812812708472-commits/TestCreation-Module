@@ -100,30 +100,7 @@ public enum QuestionType: String, Codable {
 }
 
 
-@available(macOS 10.15, iOS 13, *)
-public struct QuestionContent: View {
 
-    public var content: AnyView
-
-    public init(_ content: AnyView) {
-
-        self.content = content
-
-    }
-
-    public init<V: View>(@ViewBuilder builder: () -> V) {
-
-        self.content = AnyView(builder())
-
-    }
-
-    public var body: some View {
-
-        content
-
-    }
-
-}
  
 @available(macOS 10.15, iOS 13, *)
 struct mathEquationUIElement: View {

@@ -5,7 +5,7 @@ import Testing
     // Write your test here and use APIs like `#expect(...)` to check expected conditions.
     
     
-    
+    /*
    
     let p = Number(7)
     let f = p
@@ -48,7 +48,7 @@ import Testing
    
     #expect(sum.description == "55230504379650879109414376027")
      
-    /*
+    
     var p: Number = 3
     var x = 3
     
@@ -62,7 +62,16 @@ import Testing
     }
      */
     
-    
+    for i in 0..<1000 {
+        
+        let num = Number(i)
+        print(num.description)
+        //let result = num + num2
+        
+        //#expect(result.getDescription() == "2")
+        
+        
+    }
     
 }
 
