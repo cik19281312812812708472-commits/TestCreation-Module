@@ -27,7 +27,7 @@ public enum PackageTypes: Codable {
 
 @available(iOS 13, *)
 @available(macOS 10.15, *)
-public protocol Package: ObservableObject, Identifiable, Codable {
+public protocol Package: ObservableObject, Identifiable {
 
     ///Please put your internal name as a let statement. If you don't want the user to see you package name changing.
     
