@@ -58,6 +58,7 @@ public struct Question: Identifiable, Equatable {
     //TODO: Special views will be created for this insted of it being stored here:
     //TODO: And special inputs views will be created for the question math answer and the question math input
    
+    public var checkAnswerScriptLoc: String?
     
     public mutating func checkAnswer() {
     
@@ -103,7 +104,8 @@ public struct Question: Identifiable, Equatable {
                 questionAnswer: String,
                 checkAnswer: ((Input, Answer) -> Bool)? = nil,
                 questionDescription: String = "",
-                letTestManagerCreateDescriptionOfQuestion: Bool = true
+                letTestManagerCreateDescriptionOfQuestion: Bool = true,
+                checkAnswerScriptLoc: String? = nil
     ) {
         
         self.packageOwner = creator
@@ -119,6 +121,7 @@ public struct Question: Identifiable, Equatable {
         self.customCheckAnsFunc = checkAnswer
         self.questionDescription = questionDescription
         self.letTestManagerCreateDescriptionOfQuestion = letTestManagerCreateDescriptionOfQuestion
+        self.checkAnswerScriptLoc = checkAnswerScriptLoc
         
     }
     
