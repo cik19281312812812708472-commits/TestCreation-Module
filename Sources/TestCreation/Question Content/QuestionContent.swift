@@ -11,7 +11,11 @@ public struct QuestionContent: View {
 
     //type eraser
     public var content: AnyView
-
+    
+    //For working with web view:
+    public var contentFileURL: URL? = nil
+    public var contentHTMLFileName: String? = nil
+    
     public init(_ content: AnyView) {
 
         self.content = content
@@ -26,6 +30,8 @@ public struct QuestionContent: View {
     
     public init(_ contentFileURL: URL, HTMLFileName: String) {
         self.content = AnyView(LocalCrossPlatformWebView(fileDirectory: contentFileURL, HTMLFileName: HTMLFileName))
+        self.contentFileURL = contentFileURL
+        self.contentHTMLFileName = HTMLFileName 
     }
     
     public var body: some View {
