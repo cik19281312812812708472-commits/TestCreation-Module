@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 import Combine
-
+import JavaScriptCore
 
 public enum PackageTypes: Codable {
     
@@ -23,7 +23,11 @@ public enum PackageTypes: Codable {
     
 }
 
-
+public protocol CustomPackage: Package {
+    var customPacakgeOrigin: URL { get set }
+    var jsContext: JSContext { get set }
+    
+}
 
 @available(iOS 13, *)
 @available(macOS 10.15, *)
