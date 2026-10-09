@@ -24,7 +24,7 @@ public enum PackageTypes: Codable {
 }
 
 public protocol CustomPackage: Package {
-    var customPacakgeOrigin: URL { get set }
+    var customPackageOrigin: URL { get set }
     var jsContext: JSContext { get set }
     
 }
