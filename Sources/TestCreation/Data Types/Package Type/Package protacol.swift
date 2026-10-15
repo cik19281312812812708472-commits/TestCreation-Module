@@ -29,11 +29,14 @@ public protocol CustomPackage: Package {
     
 }
 
+
+
 @available(iOS 13, *)
 @available(macOS 10.15, *)
 public protocol Package: ObservableObject, Identifiable {
 
     ///Please put your internal name as a let statement. If you don't want the user to see you package name changing.
+    var packageVersion: Version { get set }
     
     var publicName: String { get }
     
@@ -47,9 +50,9 @@ public protocol Package: ObservableObject, Identifiable {
     ///
     var packageType: PackageTypes { get set }
     
-    var allChangbleBools: [boolSetting] { get set }
-    var allChangbleInts: [intSetting] { get set }
-    var allChangbleDoubles: [doubleSetting] { get set }
+    var allChangbleBools: [BoolSetting] { get set }
+    var allChangbleInts: [IntSetting] { get set }
+    var allChangbleDoubles: [DoubleSetting] { get set }
    
     
     //make a func call modify settings
@@ -87,7 +90,7 @@ public extension Package {
         let currentIndexName: String = self.allChangbleBools[index].name
         let currentIndexID: UUID = self.allChangbleBools[index].id
         
-        self.allChangbleBools[index] =  boolSetting(bool: to, name: currentIndexName, id: currentIndexID)
+        self.allChangbleBools[index] =  BoolSetting(bool: to, name: currentIndexName, id: currentIndexID)
     }
     
     func changeAnInt(_ index: Int, to: Int) {
@@ -95,7 +98,7 @@ public extension Package {
         let currentIndexName: String = self.allChangbleInts[index].name
         let currentIndexID: UUID = self.allChangbleInts[index].id
         
-        self.allChangbleInts[index] = intSetting(int: to, name: currentIndexName, id: currentIndexID)
+        self.allChangbleInts[index] = IntSetting(int: to, name: currentIndexName, id: currentIndexID)
     }
     
     func changeADouble(_ index: Int, to: Double) {
@@ -103,7 +106,7 @@ public extension Package {
         let currentIndexName: String = self.allChangbleDoubles[index].name
         let currentIndexID: UUID = self.allChangbleDoubles[index].id
         
-        self.allChangbleDoubles[index] = doubleSetting(double: to, name: currentIndexName, id: currentIndexID)
+        self.allChangbleDoubles[index] = DoubleSetting(double: to, name: currentIndexName, id: currentIndexID)
     }
     
     
@@ -125,7 +128,7 @@ public enum allChangbleTypes {
 }
 
 
-public struct boolSetting: Identifiable, Codable {
+public struct BoolSetting: Identifiable, Codable {
     
     public var bool: Bool
     public var name: String
@@ -143,7 +146,7 @@ public struct boolSetting: Identifiable, Codable {
     
 }
 
-public struct intSetting: Identifiable, Codable {
+public struct IntSetting: Identifiable, Codable {
     
     public var int: Int
     
@@ -163,7 +166,7 @@ public struct intSetting: Identifiable, Codable {
     
 }
 
-public struct doubleSetting: Identifiable, Codable {
+public struct DoubleSetting: Identifiable, Codable {
     
     
     public var double: Double
