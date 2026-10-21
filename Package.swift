@@ -12,11 +12,28 @@ let package = Package(
             targets: ["TestCreation"]
         ),
     ],
+    dependencies: [
+            .package(url: "https://github.com/google-ai-edge/mediapipe", branch: "master"),
+            .package(url: "https://github.com/pvieito/PythonKit", from: "1.0.0")
+                
+    ],
+    
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
+    
         .target(
-            name: "TestCreation"
+            name: "TestCreation",
+            dependencies: [
+                // 2. Link the text task product to your target
+                .product(name: "MediaPipeTasksText", package: "mediapipe", condition: .when(platforms: [.iOS])),
+                .product(name: "PythonKit", package: "PythonKit", condition: .when(platforms: [.macOS])),
+          
+            ],
+            resources: [
+                .copy("Resources/python3.12"),
+                .copy("Resources/Python.xcframework")
+            ]
         ),
         .testTarget(
             name: "TestCreationTests",

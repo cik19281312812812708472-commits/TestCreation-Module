@@ -1,0 +1,24 @@
+{
+  "originHash" : "3d71f6a4010344c557b3464aaf782b3d37581f3feca00c2cda6a7b9bb27f5cd2",
+  "pins" : [
+    {
+      "identity" : "mediapipe",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google-ai-edge/mediapipe",
+      "state" : {
+        "branch" : "master",
+        "revision" : "565053ce9ad8c464419c1e19df0ad46d8f6adacf"
+      }
+    },
+    {
+      "identity" : "pythonkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pvieito/PythonKit.git",
+      "state" : {
+        "revision" : "e1d34f95c58189b771bfc8423b9b2cf8fc651664",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}

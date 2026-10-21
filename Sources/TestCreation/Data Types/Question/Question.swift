@@ -5,6 +5,8 @@
 //  Created by Desire on 2026-07-02.
 //
 
+
+
 @available(macOS 10.15, iOS 13, *)
 extension Question {
     
@@ -55,6 +57,9 @@ public struct Question: Identifiable, Equatable {
     
     public var customCheckAnsFunc: ((Input, Answer) -> Bool)?
     
+    public var modifyAnswerFunc: ((Input) -> Answer)?
+    ///When this is on the nli will check the semantic meaning and return if it is entailed, neurtal or contradicting with percentage: "Entailed 65.01"
+    public var usingNLIToCheckSemanticMeaning: Bool
     //TODO: Special views will be created for this insted of it being stored here:
     //TODO: And special inputs views will be created for the question math answer and the question math input
    
@@ -62,33 +67,52 @@ public struct Question: Identifiable, Equatable {
     
     public mutating func checkAnswer() {
     
-        if customCheckAnsFunc != nil {
+        if let modifyAnswerFunc {
+            self.questionAnswer = modifyAnswerFunc(input)
+        }
+        
+        
+        if usingNLIToCheckSemanticMeaning {
             
-            self.isAnswerCorrect = customCheckAnsFunc!(self.input, self.questionAnswer)
+            #if os(macOS)
+            let analysisResults = compareInputAndAnswerViaAI(input: input, answer: questionAnswer)
             
-        } else {
-            
-            switch questionType {
-            case .text:
-                if self.questionAnswer == self.input {
-                    self.isAnswerCorrect = true
-                } else {
-                    self.isAnswerCorrect = false
-                }
-            case .math:
-                if self.questionAnswer == self.input {
-                    self.isAnswerCorrect = true
-                } else {
-                    self.isAnswerCorrect = false
-                }
-            case .multipleChoice:
-                if self.questionAnswer == self.input {
-                    self.isAnswerCorrect = true
-                } else {
-                    self.isAnswerCorrect = false
-                }
+            if analysisResults[0] == "Entailment" {
+                self.isAnswerCorrect = true
             }
             
+            
+            #endif
+        } else {
+            
+            if customCheckAnsFunc != nil {
+                
+                self.isAnswerCorrect = customCheckAnsFunc!(self.input, self.questionAnswer)
+                
+            } else {
+                
+                switch questionType {
+                case .text:
+                    if self.questionAnswer == self.input {
+                        self.isAnswerCorrect = true
+                    } else {
+                        self.isAnswerCorrect = false
+                    }
+                case .math:
+                    if self.questionAnswer == self.input {
+                        self.isAnswerCorrect = true
+                    } else {
+                        self.isAnswerCorrect = false
+                    }
+                case .multipleChoice:
+                    if self.questionAnswer == self.input {
+                        self.isAnswerCorrect = true
+                    } else {
+                        self.isAnswerCorrect = false
+                    }
+                }
+                
+            }
         }
     }
     
@@ -103,6 +127,8 @@ public struct Question: Identifiable, Equatable {
                 questionContentSizeY: CGFloat,
                 questionAnswer: String,
                 checkAnswer: ((Input, Answer) -> Bool)? = nil,
+                modifyAnswerFunc: ((Input) -> Answer)? = nil,
+                usingNLIToCheckSemanticMeaning: Bool = false,
                 questionDescription: String = "",
                 letTestManagerCreateDescriptionOfQuestion: Bool = true,
                 checkAnswerScriptLoc: String? = nil
@@ -123,6 +149,8 @@ public struct Question: Identifiable, Equatable {
         self.letTestManagerCreateDescriptionOfQuestion = letTestManagerCreateDescriptionOfQuestion
         self.checkAnswerScriptLoc = checkAnswerScriptLoc
         
+        self.modifyAnswerFunc = modifyAnswerFunc
+        self.usingNLIToCheckSemanticMeaning = usingNLIToCheckSemanticMeaning
     }
     
     
