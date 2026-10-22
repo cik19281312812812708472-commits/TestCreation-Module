@@ -22,27 +22,26 @@ public enum PythonEnvironment {
             return
         }
 
-        guard FileManager.default.fileExists(atPath: resolvedStdLibURL.path) else {
-            print("❌ Error: Could not find python3.12 standard library folder.")
-            return
-        }
+        // 2. Target the exact real binary inside Versions/Current/ (bypassing symlink loops)
+        let binaryPath = resolvedFrameworkURL
+            .appendingPathComponent("Versions/Current/Python")
+            .path
+        
+        // Fallback to direct path if 'Versions/Current' structure differs
+        let finalBinaryPath = FileManager.default.fileExists(atPath: binaryPath) ? binaryPath : resolvedFrameworkURL.appendingPathComponent("Python").path
 
-        // 2. Resolve exact binary path
-        let binaryPath = resolvedFrameworkURL.appendingPathComponent("Python").path
-
-        guard FileManager.default.fileExists(atPath: binaryPath) else {
-            print("❌ Critical Error: Python binary not found at: \(binaryPath)")
+        guard FileManager.default.fileExists(atPath: finalBinaryPath) else {
+            print("❌ Critical Error: Python binary not found at: \(finalBinaryPath)")
             return
         }
 
         let stdLibPath = resolvedStdLibURL.path
         let dynloadPath = "\(stdLibPath)/lib-dynload"
 
-        // 3. EXPLICITLY set the environment variable first (PythonKit checks this directly)
-        setenv("PYTHON_LIBRARY", binaryPath, 1)
+        // 3. Register with PythonKit and set environment variables
+        setenv("PYTHON_LIBRARY", finalBinaryPath, 1)
+        PythonLibrary.useLibrary(at: finalBinaryPath)
         
-        // 4. Then invoke PythonLibrary registration and paths
-        PythonLibrary.useLibrary(at: binaryPath)
         setenv("PYTHONHOME", stdLibPath, 1)
         setenv("PYTHONPATH", "\(stdLibPath):\(dynloadPath)", 1)
 
