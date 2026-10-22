@@ -3,37 +3,41 @@ import PythonKit
 
 public enum PythonEnvironment {
     private static let setup: Void = {
-        // 1. Get the base resource URL of the Swift Package bundle
-        guard let resourcesURL = Bundle.module.resourceURL else {
-            print("❌ Error: Bundle.module.resourceURL is nil.")
+        // 1. Recursively search the bundle for the framework and standard library
+        guard let frameworkURL = Bundle.module.url(forResource: "Python", withExtension: "xcframework") else {
+            print("❌ Error: Could not locate Python.xcframework in package resources.")
+            return
+        }
+        
+        guard let stdLibURL = Bundle.module.url(forResource: "python3.12", withExtension: nil) else {
+            print("❌ Error: Could not locate python3.12 folder in package resources.")
             return
         }
 
-        // 2. Build the path explicitly using resourceURL (bypassing file extension lookups)
-        let frameworkURL = resourcesURL
-            .appendingPathComponent("Python.xcframework")
+        // 2. Resolve the precise binary path inside the xcframework
+        let binaryPath = frameworkURL
             .appendingPathComponent("macos-arm64_x86_64")
             .appendingPathComponent("Python.framework")
             .appendingPathComponent("Python")
+            .path
 
-        let stdLibURL = resourcesURL.appendingPathComponent("python3.12")
-        let dynloadPath = stdLibURL.appendingPathComponent("lib-dynload").path
+        let stdLibPath = stdLibURL.path
+        let dynloadPath = "\(stdLibPath)/lib-dynload"
 
-        // 3. Verify the binary actually exists at this path
-        let binaryPath = frameworkURL.path
+        // 3. Verify the binary file exists before passing it to PythonKit
         if !FileManager.default.fileExists(atPath: binaryPath) {
-            print("❌ Critical Error: Python binary not found at path: \(binaryPath)")
+            print("❌ Critical Error: Python binary slice not found at: \(binaryPath)")
             return
         }
 
-        // 4. Force PythonKit to use the verified path
+        // 4. Force PythonKit to use the located framework binary
         PythonLibrary.useLibrary(at: binaryPath)
 
-        // 5. Point Python to the standard library
-        setenv("PYTHONHOME", stdLibURL.path, 1)
-        setenv("PYTHONPATH", "\(stdLibURL.path):\(dynloadPath)", 1)
+        // 5. Configure standard library environment variables
+        setenv("PYTHONHOME", stdLibPath, 1)
+        setenv("PYTHONPATH", "\(stdLibPath):\(dynloadPath)", 1)
 
-        print("✅ Python environment successfully loaded from package bundle!")
+        print("✅ Python environment successfully initialized from package bundle!")
     }()
 
     public static func initialize() {
