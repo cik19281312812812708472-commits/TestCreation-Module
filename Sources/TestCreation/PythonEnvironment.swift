@@ -2,7 +2,6 @@ import Foundation
 import PythonKit
 
 public enum PythonEnvironment {
-    // static let closures are thread-safe and execute exactly once automatically in Swift
     private static let setup: Void = {
         // 1. Locate the framework and standard library inside package resources
         guard let frameworkURL = Bundle.module.url(forResource: "Python", withExtension: "xcframework"),
@@ -11,9 +10,9 @@ public enum PythonEnvironment {
             return
         }
 
-        // 2. Resolve paths (match your architecture slice folder name)
+        // 2. Resolve the precise path to the framework binary slice
         let binaryPath = frameworkURL
-            .appendingPathComponent("macos-arm64_x86_64")
+            .appendingPathComponent("macos-arm64_x86_64") // Change to match your target slice if needed
             .appendingPathComponent("Python.framework")
             .appendingPathComponent("Python")
             .path
@@ -21,23 +20,17 @@ public enum PythonEnvironment {
         let stdLibPath = stdLibURL.path
         let dynloadPath = "\(stdLibPath)/lib-dynload"
 
-        // 3. Tell PythonKit where to find the dynamic library and home paths automatically
-        setenv("PYTHON_LIBRARY", binaryPath, 1)
+        // 3. Explicitly tell PythonKit to use this exact binary path
+        PythonLibrary.useLibrary(at: binaryPath)
+
+        // 4. Point Python to the bundled standard library paths
         setenv("PYTHONHOME", stdLibPath, 1)
         setenv("PYTHONPATH", "\(stdLibPath):\(dynloadPath)", 1)
 
-        print("Python environment successfully configured for PythonKit!")
+        print("Python environment successfully configured via PythonLibrary.useLibrary!")
     }()
 
     public static func initialize() {
         _ = setup // Forces the thread-safe closure to run once
-    }
-
-    public static func runTest() -> String {
-        initialize()
-
-        let math = Python.import("math")
-        let result = math.sqrt(225)
-        return "Python math.sqrt(225) = \(result)"
     }
 }
