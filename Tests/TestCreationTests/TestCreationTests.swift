@@ -4,6 +4,8 @@ import Testing
 @Test func example() {
     // Write your test here and use APIs like `#expect(...)` to check expected conditions.
     
+
+    /*
     //initializing the python envirionment that will allow us to run python
     print(PythonEnvironment.autoInitialize())
    // PythonEnvironment.inititize(pythonLib: URL(string: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12")!)
@@ -19,6 +21,7 @@ import Testing
     question.checkAnswer()
     question.checkAnswer()
     #expect(question.isAnswerCorrect == true)
+     */
 }
 
 

@@ -77,13 +77,20 @@ public struct Question: Identifiable, Equatable {
         if usingNLIToCheckSemanticMeaning {
             
             #if os(macOS)
-            let analysisResults = compareInputAndAnswerViaAI(input: input, answer: questionAnswer)
-            
-            if analysisResults[0] == "Entailment" {
-                self.isAnswerCorrect = true
+            if PythonEnvironment.pythonEnvironmentInitialized && String(cString: getenv("USE_PYTHON_FOR_AI_ANALYSIS")) != "false" {
+                let analysisResults = compareInputAndAnswerViaAI(input: input, answer: questionAnswer)
+                
+                if analysisResults[0] == "Entailment" {
+                    self.isAnswerCorrect = true
+                }
+                
+            } else {
+                if self.questionAnswer == self.input {
+                    self.isAnswerCorrect = true
+                } else {
+                    self.isAnswerCorrect = false
+                }
             }
-            
-            
             #else
             if self.questionAnswer == self.input {
                 self.isAnswerCorrect = true
