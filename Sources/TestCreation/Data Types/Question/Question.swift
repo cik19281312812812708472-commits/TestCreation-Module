@@ -25,7 +25,7 @@ extension Question {
 @available(macOS 10.15, iOS 13, *)
 public struct Question: Identifiable, Equatable {
     
-    public static nonisolated(unsafe) var sentenceAnalyzer = SentenceAnalyzer()
+    
     
     public typealias Input = String
     public typealias Answer = String

@@ -3,6 +3,8 @@ import Foundation
 public struct PythonEnvironment {
     
     public nonisolated(unsafe) static var pythonEnvironmentInitialized: Bool = false
+    public static nonisolated(unsafe) var sentenceAnalyzer: SentenceAnalyzer? = nil
+    
     
     public static var resourcesLocation: URL {
         
@@ -47,6 +49,8 @@ public struct PythonEnvironment {
             failed = PythonEnvironment.installSentenceTransformers()
             failed.toggle()
         }
+        
+        sentenceAnalyzer = SentenceAnalyzer()
         
         if !failed {
             PythonEnvironment.pythonEnvironmentInitialized = true
