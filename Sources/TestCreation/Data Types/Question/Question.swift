@@ -23,7 +23,7 @@ extension Question {
 //MARK: MAKE IT THAT EACH QUESTION CAN HAVE CONTENT FOR iOS and macOS
 //add possibility for questiosn to be true or false
 @available(macOS 10.15, iOS 13, *)
-public struct Question: Identifiable, Equatable {
+public struct Question: Identifiable, Equatable, Sendable {
     
     
     
@@ -57,9 +57,9 @@ public struct Question: Identifiable, Equatable {
     ///this is simply a var to check if the input is th
     public var input: String = ""
     
-    public var customCheckAnsFunc: ((Input, Answer) -> Bool)?
+    public var customCheckAnsFunc: (@Sendable (Input, Answer) -> Bool)?
     
-    public var modifyAnswerFunc: ((Input) -> Answer)?
+    public var modifyAnswerFunc: (@Sendable (Input) -> Answer)?
     ///When this is on the nli will check the semantic meaning and return if it is entailed, neurtal or contradicting with percentage: "Entailed 65.01"
     public var usingNLIToCheckSemanticMeaning: Bool
     //TODO: Special views will be created for this insted of it being stored here:
@@ -137,8 +137,8 @@ public struct Question: Identifiable, Equatable {
                 questionContentSizeX: CGFloat,
                 questionContentSizeY: CGFloat,
                 questionAnswer: String,
-                checkAnswer: ((Input, Answer) -> Bool)? = nil,
-                modifyAnswerFunc: ((Input) -> Answer)? = nil,
+                checkAnswer: (@Sendable (Input, Answer) -> Bool)? = nil,
+                modifyAnswerFunc: (@Sendable (Input) -> Answer)? = nil,
                 usingNLIToCheckSemanticMeaning: Bool = false,
                 questionDescription: String = "",
                 letTestManagerCreateDescriptionOfQuestion: Bool = true,

@@ -93,7 +93,7 @@ public struct mathEquationBlueprint: Equatable {
     
 }
 
-public enum QuestionType: String, Codable {
+public enum QuestionType: String, Codable, Sendable {
     case text
     case math
     case multipleChoice
