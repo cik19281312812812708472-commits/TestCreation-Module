@@ -12,11 +12,12 @@ import PythonKit
 public struct SentenceAnalyzer {
     public var crossEncoderModel: PythonObject
     public var sentenceTransformerModel: PythonObject
-    
+    public var torch: PythonObject
+    public var sentenceTransformers: PythonObject
     init() {
         
-        let torch = Python.import("torch")
-        let sentenceTransformers = Python.import("sentence_transformers")
+        self.torch = Python.import("torch")
+        self.sentenceTransformers = Python.import("sentence_transformers")
         
         let SentenceTransformer = sentenceTransformers.SentenceTransformer
         let CrossEncoder = sentenceTransformers.CrossEncoder
@@ -38,8 +39,7 @@ public struct SentenceAnalyzer {
        
 
         // 2. Import Python modules
-        let torch = Python.import("torch")
-        let sentenceTransformers = Python.import("sentence_transformers")
+    
     
         let emb1 = sentenceTransformerModel.encode(originalSentence, convert_to_tensor: true)
         let emb2 = sentenceTransformerModel.encode(testedSentence, convert_to_tensor: true)
@@ -122,6 +122,9 @@ public struct SentenceAnalyzer {
         output += "Exact Topic distance = \(String(format: "%.4f", distance))\n"
         output += "\nResult: \(winningLabel)"
          print(output)*/
+        
+        print(labels)
+        print(probs)
         print(["\(winningLabel)", "\(String(format: "%.4f", distance))"])
         return ["\(winningLabel)", "\(String(format: "%.4f", distance))"]
     }
