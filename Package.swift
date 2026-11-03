@@ -14,8 +14,8 @@ let package = Package(
     ],
     dependencies: [
             .package(url: "https://github.com/google-ai-edge/mediapipe", branch: "master"),
-            .package(url: "https://github.com/pvieito/PythonKit", from: "1.0.0")
-                
+            .package(url: "https://github.com/pvieito/PythonKit", from: "1.0.0"),
+            
     ],
     
     targets: [
@@ -29,11 +29,8 @@ let package = Package(
                 .product(name: "MediaPipeTasksText", package: "mediapipe", condition: .when(platforms: [.iOS])),
                 .product(name: "PythonKit", package: "PythonKit", condition: .when(platforms: [.macOS])),
           
-            ],
-            resources: [
-                .copy("Resources/python3.12"),
-                .copy("Resources/Python.xcframework")
             ]
+            
         ),
         .testTarget(
             name: "TestCreationTests",

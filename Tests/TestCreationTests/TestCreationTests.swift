@@ -1,78 +1,21 @@
 import Testing
 @testable import TestCreation
 
-@Test func example() async throws {
+@Test func example() {
     // Write your test here and use APIs like `#expect(...)` to check expected conditions.
     
+    //initializing the python envirionment that will allow us to run python
+    print(PythonEnvironment.autoInitize())
+   // PythonEnvironment.inititize(pythonLib: URL(string: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12")!)
     
-    /*
-   
-    let p = Number(7)
-    let f = p
+    var question = Question(creator: UUID(), questionName: "", questionText: "", questionContent: QuestionContent{}, questionContentSizeX: 0, questionContentSizeY: 0, questionAnswer: "The cat drinks water.")
     
+    question.usingNLIToCheckSemanticMeaning = true
+    question.input = "The cat sips water."
     
-    #expect(f.value == "7")
-    let binaryNumber = [
-
-        1, 0, 1, 1, 0, 0, 1, 0,
-
-        0, 1, 1, 1, 0, 1, 0, 1,
-
-        1, 0, 0, 1, 1, 0, 1, 0,
-
-        0, 0, 1, 1, 1, 0, 0, 1,
-
-        1, 1, 0, 0, 1, 0, 1, 1,
-
-        0, 1, 0, 1, 1, 1, 0, 0,
-
-        1, 0, 1, 0, 0, 1, 1, 1,
-
-        0, 0, 1, 1, 0, 1, 0, 1,
-
-        1, 0, 0, 1, 0, 1, 1, 0,
-
-        0, 1, 1, 0, 1, 0, 0, 1,
-
-        1, 1, 0, 1, 0, 0, 1, 0,
-
-        0, 1, 0, 1, 1, 0, 1, 1
-
-    ]
-    
-    let sum = Number.convertBinaryToNumber(binary: binaryNumber, belowDecimalBinary: [0])
+    question.checkAnswer()
  
-    
-    print(sum.description)
-    
-   
-    #expect(sum.description == "55230504379650879109414376027")
-     
-    
-    var p: Number = 3
-    var x = 3
-    
-    for i in 0..<10 {
-        let f = Number(1)
-        print("here")
-        p = (p) - (f)
-        x = x - 1
-        
-        #expect(p.description == x.description)
-    }
-     */
-    
-    for i in 0..<1000 {
-        
-        let num = Number(i)
-        print(num.description)
-        //let result = num + num2
-        
-        //#expect(result.getDescription() == "2")
-        
-        
-    }
-    
+    #expect(question.isAnswerCorrect == true)
 }
 
 

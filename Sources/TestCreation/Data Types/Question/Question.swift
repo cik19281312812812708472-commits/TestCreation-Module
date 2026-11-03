@@ -82,6 +82,12 @@ public struct Question: Identifiable, Equatable {
             }
             
             
+            #else
+            if self.questionAnswer == self.input {
+                self.isAnswerCorrect = true
+            } else {
+                self.isAnswerCorrect = false
+            }
             #endif
         } else {
             

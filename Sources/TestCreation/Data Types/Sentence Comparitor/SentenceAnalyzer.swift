@@ -13,7 +13,7 @@ public enum SentenceAnalyzer {
 
     public static func analyze(originalSentence: String, testedSentence: String) -> [String] {
         // 1. Ensure Python environment and PythonKit are ready
-        PythonEnvironment.initialize()
+       
 
         // 2. Import Python modules
         let torch = Python.import("torch")
@@ -28,7 +28,7 @@ public enum SentenceAnalyzer {
 
         let emb1 = model.encode(originalSentence, convert_to_tensor: true)
         let emb2 = model.encode(testedSentence, convert_to_tensor: true)
-
+    
         // 4. Compute Cosine Similarity and Distance
         let cosSim = Double(String(util.cos_sim(emb1, emb2).item()) ?? "") ?? 0.0
         let distance = Double(String(torch.dist(emb1, emb2).item()) ?? "") ?? 0.0
@@ -40,8 +40,10 @@ public enum SentenceAnalyzer {
 
         // 6. CrossEncoder prediction (Passing a list of pairs: [[orig, tested]])
         let pairList = Python.list([[originalSentence, testedSentence]])
+        
+       // print(pairList)
         let scores = crossEncoderModel.predict(pairList)
-
+        //print("scores: ", scores)
         // 7. Apply Softmax to get probabilities
         let tensorScores = torch.tensor(scores[0])
         let probsTensor = torch.softmax(tensorScores, dim: 0)
@@ -49,16 +51,21 @@ public enum SentenceAnalyzer {
         // Convert Python tensor to Swift array of Doubles
         var probs: [Double] = []
         for prob in probsTensor.tolist() {
-            probs.append(Double(String(prob) ?? "") ?? 0.0)
+            probs.append(Double(String(describing: prob))!)
+           // print("prob: ", prob)
         }
 
         let labels = ["Contradiction", "Entailment", "Neutral"]
 
         
         // 8. Find winning label index
-        let topIdxPython = Int(String(torch.argmax(torch.tensor(probs)).item()) ?? "") ?? 0
-        let winningLabel = labels[topIdxPython]
+        //This fails
+       
+        //  let topIdxPython = Int(String(torch.argmax(torch.tensor(probs)).item())!) ?? 2
+        //print("topIdxPython: ", topIdxPython)
+       
         
+        //var output = ""
         /*
          --- AI Analysis Results ---
          Contradiction: 99.88%
@@ -68,20 +75,40 @@ public enum SentenceAnalyzer {
          Exact Topic similarity = 0.7166433334350586
 
          Result: Contradiction
-         
          */
-     
+         
+        var winingLabelIndex = 0
+        if labels.count == probs.count {
+            var topPercentage = 0.0
+            for i in 0..<labels.count {
+                let prob = probs[i]
+                let label = labels[i]
+                //print("prob: ", prob)
+                let percentage = prob * 100
+                if topPercentage < percentage {
+                    winingLabelIndex = i
+                    topPercentage = percentage
+                }
+              //  output += "\(label): \(String(percentage))%\n"
+            }
+        } else {
+            print("not")
+        }
+        
+        let winningLabel = labels[winingLabelIndex]
+        
         /*
         for (label, prob) in zip(labels, probs) {
+          
             let percentage = String(format: "%.2f", prob * 100)
-            output += "\(label): \(percentage)%\n"
+            
         }
 
         output += "Topic Similarity: \(String(format: "%.4f", cosSim))\n"
         output += "Exact Topic distance = \(String(format: "%.4f", distance))\n"
         output += "\nResult: \(winningLabel)"
-         */
-        
+         print(output)*/
+        print(["\(winningLabel)", "\(String(format: "%.4f", distance))"])
         return ["\(winningLabel)", "\(String(format: "%.4f", distance))"]
     }
 }
