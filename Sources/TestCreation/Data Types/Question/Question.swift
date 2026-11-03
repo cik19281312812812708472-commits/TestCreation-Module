@@ -67,68 +67,64 @@ public struct Question: Identifiable, Equatable {
    
     public var checkAnswerScriptLoc: String?
     
+    #if os(macOS)
+    public mutating func useNLIToCheckAnswers() {
+        
+        if PythonEnvironment.pythonEnvironmentInitialized && String(cString: getenv("USE_PYTHON_FOR_AI_ANALYSIS")) != "false" {
+            let analysisResults = compareInputAndAnswerViaAI(input: input, answer: questionAnswer)
+            
+            if analysisResults[0] == "Entailment" {
+                self.isAnswerCorrect = true
+            }
+            
+        } else {
+            if self.questionAnswer == self.input {
+                self.isAnswerCorrect = true
+            } else {
+                self.isAnswerCorrect = false
+            }
+        }
+    }
+    #endif
+    
+    
     public mutating func checkAnswer() {
     
         if let modifyAnswerFunc {
             self.questionAnswer = modifyAnswerFunc(input)
         }
         
-        
-        if usingNLIToCheckSemanticMeaning {
+       
             
-            #if os(macOS)
-            if PythonEnvironment.pythonEnvironmentInitialized && String(cString: getenv("USE_PYTHON_FOR_AI_ANALYSIS")) != "false" {
-                let analysisResults = compareInputAndAnswerViaAI(input: input, answer: questionAnswer)
-                
-                if analysisResults[0] == "Entailment" {
+        if customCheckAnsFunc != nil {
+            
+            self.isAnswerCorrect = customCheckAnsFunc!(self.input, self.questionAnswer)
+            
+        } else {
+            
+            switch questionType {
+            case .text:
+                if self.questionAnswer == self.input {
                     self.isAnswerCorrect = true
+                } else {
+                    self.isAnswerCorrect = false
                 }
-                
-            } else {
+            case .math:
+                if self.questionAnswer == self.input {
+                    self.isAnswerCorrect = true
+                } else {
+                    self.isAnswerCorrect = false
+                }
+            case .multipleChoice:
                 if self.questionAnswer == self.input {
                     self.isAnswerCorrect = true
                 } else {
                     self.isAnswerCorrect = false
                 }
             }
-            #else
-            if self.questionAnswer == self.input {
-                self.isAnswerCorrect = true
-            } else {
-                self.isAnswerCorrect = false
-            }
-            #endif
-        } else {
             
-            if customCheckAnsFunc != nil {
-                
-                self.isAnswerCorrect = customCheckAnsFunc!(self.input, self.questionAnswer)
-                
-            } else {
-                
-                switch questionType {
-                case .text:
-                    if self.questionAnswer == self.input {
-                        self.isAnswerCorrect = true
-                    } else {
-                        self.isAnswerCorrect = false
-                    }
-                case .math:
-                    if self.questionAnswer == self.input {
-                        self.isAnswerCorrect = true
-                    } else {
-                        self.isAnswerCorrect = false
-                    }
-                case .multipleChoice:
-                    if self.questionAnswer == self.input {
-                        self.isAnswerCorrect = true
-                    } else {
-                        self.isAnswerCorrect = false
-                    }
-                }
-                
-            }
         }
+        
     }
     
     
