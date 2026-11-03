@@ -94,7 +94,7 @@ extension Question {
     
     func compareInputAndAnswerViaAI(input: String, answer: String) -> [String] {
        
-        return SentenceAnalyzer.analyze(originalSentence: answer, testedSentence: input)
+        return Question.sentenceAnalyzer.analyze(originalSentence: answer, testedSentence: input)
         
     }
     

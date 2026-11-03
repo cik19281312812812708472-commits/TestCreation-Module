@@ -9,34 +9,48 @@
 import Foundation
 import PythonKit
 
-public enum SentenceAnalyzer {
-
-    public static func analyze(originalSentence: String, testedSentence: String) -> [String] {
-        // 1. Ensure Python environment and PythonKit are ready
-       
-
-        // 2. Import Python modules
+public struct SentenceAnalyzer {
+    public var crossEncoderModel: PythonObject
+    public var sentenceTransformerModel: PythonObject
+    
+    init() {
+        
         let torch = Python.import("torch")
         let sentenceTransformers = Python.import("sentence_transformers")
         
         let SentenceTransformer = sentenceTransformers.SentenceTransformer
         let CrossEncoder = sentenceTransformers.CrossEncoder
         let util = sentenceTransformers.util
+        let mpsAvailable = Bool(String(torch.backends.mps.is_available()) ?? "") ?? false
+        let device = mpsAvailable ? "mps" : "cpu"
+        let crossEncoderModel = CrossEncoder("cross-encoder/nli-deberta-v3-base", device: device)
+        let sentenceTransformerModel = SentenceTransformer("all-MiniLM-L6-v2")
+        
+        
+        self.crossEncoderModel = crossEncoderModel
+        self.sentenceTransformerModel = sentenceTransformerModel
+        
+    }
+    
+    
+    public func analyze(originalSentence: String, testedSentence: String) -> [String] {
+        // 1. Ensure Python environment and PythonKit are ready
+       
 
-        // 3. Load models
-        let model = SentenceTransformer("all-MiniLM-L6-v2")
-
-        let emb1 = model.encode(originalSentence, convert_to_tensor: true)
-        let emb2 = model.encode(testedSentence, convert_to_tensor: true)
+        // 2. Import Python modules
+        let torch = Python.import("torch")
+        let sentenceTransformers = Python.import("sentence_transformers")
+    
+        let emb1 = sentenceTransformerModel.encode(originalSentence, convert_to_tensor: true)
+        let emb2 = sentenceTransformerModel.encode(testedSentence, convert_to_tensor: true)
     
         // 4. Compute Cosine Similarity and Distance
-        let cosSim = Double(String(util.cos_sim(emb1, emb2).item()) ?? "") ?? 0.0
         let distance = Double(String(torch.dist(emb1, emb2).item()) ?? "") ?? 0.0
 
         // 5. Select device (MPS for Apple Silicon acceleration or CPU)
         let mpsAvailable = Bool(String(torch.backends.mps.is_available()) ?? "") ?? false
         let device = mpsAvailable ? "mps" : "cpu"
-        let crossEncoderModel = CrossEncoder("cross-encoder/nli-deberta-v3-base", device: device)
+
 
         // 6. CrossEncoder prediction (Passing a list of pairs: [[orig, tested]])
         let pairList = Python.list([[originalSentence, testedSentence]])
