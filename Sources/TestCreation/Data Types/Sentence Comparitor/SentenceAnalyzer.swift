@@ -14,6 +14,8 @@ public struct SentenceAnalyzer {
     public var sentenceTransformerModel: PythonObject
     public var torch: PythonObject
     public var sentenceTransformers: PythonObject
+    
+    
     init() {
         
         self.torch = Python.import("torch")
@@ -24,12 +26,47 @@ public struct SentenceAnalyzer {
         let util = sentenceTransformers.util
         let mpsAvailable = Bool(String(torch.backends.mps.is_available()) ?? "") ?? false
         let device = mpsAvailable ? "mps" : "cpu"
-        let crossEncoderModel = CrossEncoder("cross-encoder/nli-deberta-v3-base", device: device)
-        let sentenceTransformerModel = SentenceTransformer("all-MiniLM-L6-v2")
         
+        
+        var crossEncoderModel: PythonObject = PythonObject(floatLiteral: 0)
+        var sentenceTransformerModel: PythonObject = PythonObject(floatLiteral: 0)
+        let fileManager = FileManager.default
+        let modelsURL = URL.applicationSupportDirectory
+            .appendingPathComponent("com.techdicto.Delta")
+            .appendingPathComponent("Models")
+        let crossEncoderModelURL = modelsURL.appendingPathComponent("crossEncoderModel")
+        let sentenceTransformerURL = modelsURL.appendingPathComponent("sentenceTransformerModel")
+        
+        
+        if UserDefaults.standard.bool(forKey: "Downloaded TestCreation Models") {
+            
+            
+            crossEncoderModel = CrossEncoder(URL.toString(crossEncoderModelURL), device: device)
+            sentenceTransformerModel = SentenceTransformer(URL.toString(sentenceTransformerURL))
+            
+        } else {
+            crossEncoderModel = CrossEncoder("cross-encoder/nli-deberta-v3-base", device: device)
+            sentenceTransformerModel = SentenceTransformer("all-MiniLM-L6-v2")
+            
+            crossEncoderModel.save(URL.toString(crossEncoderModelURL))
+            sentenceTransformerModel.save(URL.toString(crossEncoderModelURL))
+            UserDefaults.standard.set(true, forKey: "Downloaded TestCreation Models")
+        }
+        
+        
+        
+        if crossEncoderModel == PythonObject(floatLiteral: 0) {
+            fatalError("Failed to initialize the crossEncoderModel")
+        }
+        if sentenceTransformerModel == PythonObject(floatLiteral: 0) {
+            fatalError("Failed to initialize the sentenceTransformerModel")
+        }
         
         self.crossEncoderModel = crossEncoderModel
         self.sentenceTransformerModel = sentenceTransformerModel
+      
+        
+        
         
     }
     
