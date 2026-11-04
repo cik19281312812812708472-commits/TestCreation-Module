@@ -49,7 +49,7 @@ public struct SentenceAnalyzer {
             sentenceTransformerModel = SentenceTransformer("all-MiniLM-L6-v2")
             
             crossEncoderModel.save(URL.toString(crossEncoderModelURL))
-            sentenceTransformerModel.save(URL.toString(crossEncoderModelURL))
+            sentenceTransformerModel.save(URL.toString(sentenceTransformerURL))
             UserDefaults.standard.set(true, forKey: "Downloaded TestCreation Models")
         }
         
