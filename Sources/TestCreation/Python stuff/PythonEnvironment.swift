@@ -55,10 +55,11 @@ public struct PythonEnvironment {
             failed.toggle()
         }
         
-        sentenceAnalyzer = SentenceAnalyzer()
+      
         
         if !failed {
             PythonEnvironment.pythonEnvironmentInitialized = true
+            sentenceAnalyzer = SentenceAnalyzer()
         }
         
     }
@@ -67,8 +68,8 @@ public struct PythonEnvironment {
     public static func autoInitialize() -> String {
         var pythonLibLoc = shell("-lc", "which python3")
         pythonLibLoc = pythonLibLoc.replacingOccurrences(of: "\n", with: "")
-        
-        if pythonLibLoc != "", let pythonLibURL = URL(string: pythonLibLoc)  {
+        pythonLibLoc = "python3 not found"
+        if let pythonLibURL = URL(string: pythonLibLoc)  {
             
             PythonEnvironment.inititize(pythonLib: pythonLibURL)
             return pythonLibLoc

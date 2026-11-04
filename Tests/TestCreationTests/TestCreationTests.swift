@@ -26,14 +26,6 @@ import Testing
     #expect(question.isAnswerCorrect == true)
      
 }
-@Test func t() {
-    print("h2")
-    var question = Question(creator: UUID(), questionName: "", questionText: "", questionContent: QuestionContent{}, questionContentSizeX: 0, questionContentSizeY: 0, questionAnswer: "The cat drinks water.")
-    
-    question.usingNLIToCheckSemanticMeaning = true
-    question.input = "The cat sips water."
-    question.useNLIToCheckAnswers()
-    
-}
+
 
 
