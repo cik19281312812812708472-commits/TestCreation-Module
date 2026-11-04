@@ -68,7 +68,7 @@ public struct PythonEnvironment {
     public static func autoInitialize() -> String {
         var pythonLibLoc = shell("-lc", "which python3")
         pythonLibLoc = pythonLibLoc.replacingOccurrences(of: "\n", with: "")
-        pythonLibLoc = "python3 not found"
+      
         if let pythonLibURL = URL(string: pythonLibLoc)  {
             
             PythonEnvironment.inititize(pythonLib: pythonLibURL)
