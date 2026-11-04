@@ -38,7 +38,7 @@ public struct SentenceAnalyzer {
         let sentenceTransformerURL = modelsURL.appendingPathComponent("sentenceTransformerModel")
         
         
-        if UserDefaults.standard.bool(forKey: "Downloaded TestCreation Models") {
+        if UserDefaults.standard.bool(forKey: "Downloaded TestCreation Models") && fileManager.fileExists(atPath: URL.toString(crossEncoderModelURL)!) &&  fileManager.fileExists(atPath: URL.toString(sentenceTransformerURL)!) {
             
             
             crossEncoderModel = CrossEncoder(URL.toString(crossEncoderModelURL), device: device)
