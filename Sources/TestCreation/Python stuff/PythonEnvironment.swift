@@ -50,6 +50,11 @@ public struct PythonEnvironment {
             failed.toggle()
         }
         
+        if !UserDefaults.standard.bool(forKey: "installedTorch") || !installedPackages.contains("torch") {
+            failed = PythonEnvironment.installTorch()
+            failed.toggle()
+        }
+        
         sentenceAnalyzer = SentenceAnalyzer()
         
         if !failed {
@@ -60,7 +65,7 @@ public struct PythonEnvironment {
     
  
     public static func autoInitialize() -> String {
-        var pythonLibLoc = shell("-lc", "which python3.12")
+        var pythonLibLoc = shell("-lc", "which python3")
         pythonLibLoc = pythonLibLoc.replacingOccurrences(of: "\n", with: "")
         
         if pythonLibLoc != "", let pythonLibURL = URL(string: pythonLibLoc)  {
@@ -112,6 +117,50 @@ public struct PythonEnvironment {
                 print("Installation failed with exit code: \(process.terminationStatus)")
             }
             UserDefaults.standard.set(true, forKey: "installedSentenceTransformers")
+            return success
+            
+        } catch {
+            print("Failed to start pip process: \(error)")
+            return false
+        }
+    }
+    static func installTorch() -> Bool {
+        let process = Process()
+        let pipe = Pipe()
+        
+        // Use python3 to invoke pip securely
+        let pythonLibPath = String(cString: getenv("PYTHON_LIBRARY"))
+        
+        process.executableURL = URL(fileURLWithPath: pythonLibPath)
+        // If python3 is elsewhere, you can use "/usr/bin/env" and pass ["python3", "-m", "pip", ...]
+        process.arguments = ["-m", "pip", "install", "torch"]
+        
+        // Hook up the pipe to capture standard output and standard error
+        process.standardOutput = pipe
+        process.standardError = pipe
+        
+        do {
+            print("Installing torch via pip...")
+            try process.run()
+            
+            // Read the output stream as it installs
+            let fileHandle = pipe.fileHandleForReading
+            let data = fileHandle.readDataToEndOfFile()
+            
+            process.waitUntilExit()
+            
+            if let output = String(data: data, encoding: .utf8) {
+                print(output)
+            }
+            
+            // Check if it exited successfully (status 0)
+            let success = process.terminationStatus == 0
+            if success {
+                print("Successfully installed sentence-transformers!")
+            } else {
+                print("Installation failed with exit code: \(process.terminationStatus)")
+            }
+            UserDefaults.standard.set(true, forKey: "installedTorch")
             return success
             
         } catch {
