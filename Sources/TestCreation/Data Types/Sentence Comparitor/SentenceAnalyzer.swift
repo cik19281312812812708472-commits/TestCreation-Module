@@ -32,7 +32,7 @@ public struct SentenceAnalyzer {
         var crossEncoderModel: PythonObject = PythonObject(floatLiteral: 0)
         var sentenceTransformerModel: PythonObject = PythonObject(floatLiteral: 0)
         let fileManager = FileManager.default
-        let modelsURL = URL.applicationSupportDirectory
+        let modelsURL = URL.cachesDirectory
             .appendingPathComponent("com.techdicto.Delta")
             .appendingPathComponent("Models")
         let crossEncoderModelURL = modelsURL.appendingPathComponent("crossEncoderModel")
