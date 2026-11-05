@@ -94,7 +94,20 @@ extension Question {
     
     func compareInputAndAnswerViaAI(input: String, answer: String) -> [String] {
        
-        return PythonEnvironment.sentenceAnalyzer!.analyze(originalSentence: answer, testedSentence: input)
+        let result1 = PythonEnvironment.sentenceAnalyzer!.analyze(originalSentence: answer, testedSentence: input)
+        
+        
+        if SentenceAnalyzer.usingAutoCorrect {
+            let autoCorrectedSentence = PythonEnvironment.sentenceAnalyzer!.autocorrectSentenceMacOS(sentence: input)
+            var result2 = PythonEnvironment.sentenceAnalyzer!.analyze(originalSentence: answer, testedSentence: input)
+            
+            if result2[0] == "Entailment" && result1[0] != "Entailment" {
+                return result2
+            }
+        }
+        
+        
+        return result1
         
     }
     

@@ -15,6 +15,7 @@ public struct SentenceAnalyzer {
     public var torch: PythonObject
     public var sentenceTransformers: PythonObject
     
+    public static nonisolated(unsafe) var usingAutoCorrect: Bool = false
     
     init() {
         
@@ -77,7 +78,7 @@ public struct SentenceAnalyzer {
 
         // 2. Import Python modules
     
-    
+        
         let emb1 = sentenceTransformerModel.encode(originalSentence, convert_to_tensor: true)
         let emb2 = sentenceTransformerModel.encode(testedSentence, convert_to_tensor: true)
     
