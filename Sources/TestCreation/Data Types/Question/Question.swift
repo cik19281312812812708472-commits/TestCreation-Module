@@ -94,14 +94,14 @@ public struct Question: Identifiable, Equatable, Sendable {
             self.questionAnswer = modifyAnswerFunc(input)
         }
         
-        
+        #if os(macOS)
         if SentenceAnalyzer.usingAutoCorrect {
             //only auto correcting if sentence analyser is initialized. 
             if PythonEnvironment.pythonEnvironmentInitialized && String(cString: getenv("USE_PYTHON_FOR_AI_ANALYSIS")) != "false" {
                 input = PythonEnvironment.sentenceAnalyzer!.autocorrectSentenceMacOS(sentence: input)
             }
         }
-       
+        #endif
             
         if customCheckAnsFunc != nil {
             
