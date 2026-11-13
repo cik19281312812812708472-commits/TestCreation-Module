@@ -4,11 +4,19 @@
 //
 //  Created by Desire on 2026-11-05.
 //
-import AppKit
+
 import NaturalLanguage
 
+
+
+
 extension SentenceAnalyzer {
+    #if os(macOS)
     
+    
+    func autocorrectSentence(sentence: String) -> String {
+        return autocorrectSentenceMacOS(sentence: sentence)
+    }
     func autocorrectSentenceMacOS(sentence: String) -> String {
         let spellChecker = NSSpellChecker.shared
         var correctedSentence = sentence
@@ -56,5 +64,9 @@ extension SentenceAnalyzer {
         
         return correctedSentence
     }
-
+    #elseif os(iOS)
+    
+    #endif
+    
+    
 }

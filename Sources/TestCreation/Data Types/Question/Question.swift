@@ -98,7 +98,13 @@ public struct Question: Identifiable, Equatable, Sendable {
         if SentenceAnalyzer.usingAutoCorrect {
             //only auto correcting if sentence analyser is initialized. 
             if PythonEnvironment.pythonEnvironmentInitialized && String(cString: getenv("USE_PYTHON_FOR_AI_ANALYSIS")) != "false" {
-                input = PythonEnvironment.sentenceAnalyzer!.autocorrectSentenceMacOS(sentence: input)
+                input = PythonEnvironment.sentenceAnalyzer!.autocorrectSentence(sentence: input)
+            }
+        }
+        #elseif os(iOS)
+        if SentenceAnalyzer.usingAutoCorrect {
+            if String(cString: getenv("USE_PYTHON_FOR_AI_ANALYSIS")) != "false" {
+                let result = compareInputAndAnswerViaAI(input: input, answer: answer)
             }
         }
         #endif

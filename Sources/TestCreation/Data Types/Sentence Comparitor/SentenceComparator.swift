@@ -36,6 +36,8 @@ class SentenceComparator {
 
     private func setupEmbedder() {
         // Locate the .tflite model file bundled in your Xcode project
+        
+        //TODO: 
         guard let modelPath = Bundle.main.path(forResource: "your_model_name", ofType: "tflite") else {
             print("Failed to find model file in bundle.")
             return
@@ -76,7 +78,7 @@ class SentenceComparator {
                 embedding2: embeddingB
             )
             
-            return similarity
+            return Float(similarity)
         } catch {
             print("Error computing similarity: \(error)")
             return nil
@@ -93,7 +95,7 @@ import Foundation
 extension Question {
     
     func compareInputAndAnswerViaAI(input: String, answer: String) -> [String] {
-       
+       print("comparing Input: \"\(input)\" with answer: \"\(answer)\"")
         let result1 = PythonEnvironment.sentenceAnalyzer!.analyze(originalSentence: answer, testedSentence: input)
         
         
@@ -102,11 +104,13 @@ extension Question {
             var result2 = PythonEnvironment.sentenceAnalyzer!.analyze(originalSentence: answer, testedSentence: input)
             
             if result2[0] == "Entailment" && result1[0] != "Entailment" {
+                print("result = ", result2)
+                //as the entailment is compared.
                 return result2
             }
         }
         
-        
+        print("result = ", result1)
         return result1
         
     }

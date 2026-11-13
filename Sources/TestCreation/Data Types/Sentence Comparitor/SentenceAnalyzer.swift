@@ -7,6 +7,7 @@
 
 
 import Foundation
+#if os(macOS)
 import PythonKit
 
 public struct SentenceAnalyzer {
@@ -167,3 +168,9 @@ public struct SentenceAnalyzer {
         return ["\(winningLabel)", "\(String(format: "%.4f", distance))"]
     }
 }
+#elseif os(iOS)
+public struct SentenceAnalyzer {
+    public static nonisolated(unsafe) var usingAutoCorrect: Bool = false
+}
+#endif
+
