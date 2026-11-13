@@ -53,7 +53,8 @@ public protocol Package: ObservableObject, Identifiable {
     var allChangbleBools: [BoolSetting] { get set }
     var allChangbleInts: [IntSetting] { get set }
     var allChangbleDoubles: [DoubleSetting] { get set }
-   
+    
+    var updatedPackage: Bool { get set }
     
     //make a func call modify settings
     
