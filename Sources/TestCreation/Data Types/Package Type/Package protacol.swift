@@ -29,7 +29,10 @@ public protocol CustomPackage: Package {
     
 }
 
-
+public protocol FlashcardSet: Package {
+    var flashCardSetFileNames: [String] { get set }
+    var flashcardOrigin: URL { get set }
+}
 
 @available(iOS 13, *)
 @available(macOS 10.15, *)
