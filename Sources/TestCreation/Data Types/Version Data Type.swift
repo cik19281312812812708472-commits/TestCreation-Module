@@ -26,7 +26,7 @@ public struct Version: Codable, Equatable, CustomStringConvertible {
         case stringVersionInvalid
     }
     
-    public func convertStringToVersion(_ stringVersion: String) throws -> Version {
+    public static func convertStringToVersion(_ stringVersion: String) throws -> Version {
         let arrayVersion = stringVersion.split(separator: "\n")[0].replacingOccurrences(of: ".", with: " ").split(separator: " ").map(String.init)
      //  print(arrayPackageVersion)
         if (arrayVersion.count == 3) {
