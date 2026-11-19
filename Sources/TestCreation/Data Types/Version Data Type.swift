@@ -41,4 +41,23 @@ public struct Version: Codable, Equatable, CustomStringConvertible {
         }
     }
     
+    public static func > (lhs: Version, rhs: Version) -> Bool {
+        
+        return !(lhs < rhs)
+    }
+    
+    public static func < (lhs: Version, rhs: Version) -> Bool {
+        
+        if lhs.Major > rhs.Major {
+            return false
+        } else if lhs.Minor > rhs.Major {
+            return false
+        } else if lhs.Patch > rhs.Patch {
+            return false
+        } else {
+            return true
+        }
+        
+    }
 }
+
