@@ -101,7 +101,7 @@ public enum QuestionType: String, Codable, Sendable {
     ///Defaults to .text
     /// - Parameters:
     ///     - string: the string expected. Expected values are: 'math', 'multiple choice', and 'text'
-    static func convertStringToQuestionType(_ string: String) -> QuestionType {
+    public static func convertStringToQuestionType(_ string: String) -> QuestionType {
         
         
         var tquestionType = QuestionType.text
