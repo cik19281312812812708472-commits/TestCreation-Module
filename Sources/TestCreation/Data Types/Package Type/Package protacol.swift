@@ -30,7 +30,7 @@ public protocol CustomPackage: Package {
 }
 
 public protocol FlashcardSet: Package {
-    var flashCardSetFileNames: [String] { get set }
+    var flashCardJSONFileNames: [String] { get set }
     var flashcardOrigin: URL { get set }
 }
 
