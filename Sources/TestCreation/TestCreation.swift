@@ -97,6 +97,27 @@ public enum QuestionType: String, Codable, Sendable {
     case text
     case math
     case multipleChoice
+    
+    ///Defaults to .text
+    /// - Parameters:
+    ///     - string: the string expected. Expected values are: 'math', 'multiple choice', and 'text'
+    static func convertStringToQuestionType(_ string: String) -> QuestionType {
+        
+        
+        var tquestionType = QuestionType.text
+        
+        switch string {
+        case "math":
+            tquestionType = .math
+        case "multiple choice":
+            tquestionType = .multipleChoice
+        default:
+            break
+        }
+        
+        return tquestionType
+    }
+    
 }
 
 
